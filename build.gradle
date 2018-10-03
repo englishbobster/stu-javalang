@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    //bill of materials for junit5...
+    //bill of materials (bom) for junit5...
     implementation 'org.junit:junit-bom:5.3.1'
     
     //...so we can pull in dependencies without versions
