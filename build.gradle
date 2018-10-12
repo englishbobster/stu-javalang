@@ -1,4 +1,7 @@
 plugins {
+    //Now we can add the lombok dependency via the gradle plugin
+    // https://github.com/franzbecker/gradle-lombok
+    id 'io.franzbecker.gradle-lombok' version '1.14'
     id 'java'
     id 'idea'
 }
@@ -31,4 +34,10 @@ test {
     testLogging {
         events 'PASSED', 'FAILED', 'SKIPPED'
     }
+}
+
+lombok { // Configuring the lombok plugin which should give us the lombok compile time dependency
+         // These values are the default values.
+    version = "1.16.20"
+    sha256 = "c5178b18caaa1a15e17b99ba5e4023d2de2ebc18b58cde0f5a04ca4b31c10e6d"
 }
