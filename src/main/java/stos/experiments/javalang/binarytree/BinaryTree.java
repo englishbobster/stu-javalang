@@ -1,5 +1,8 @@
 package stos.experiments.javalang.binarytree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 class BinaryTree {
 
     TreeNode rootNode = null;
@@ -79,6 +82,45 @@ class BinaryTree {
     private int findSmallestValue(TreeNode current) {
         return current.left == null ? current.value :findSmallestValue(current.left);
     }
+
+    String getInOrderDepthFirst() {
+        StringBuilder str = new StringBuilder();
+        str = traverseInOrder(rootNode, str);
+        return str.toString();
+    }
+
+    private StringBuilder traverseInOrder(TreeNode node, StringBuilder stringBuilder) {
+        if (node != null) {
+            stringBuilder = traverseInOrder(node.left, stringBuilder);
+            stringBuilder.append(node.value + " ");
+            stringBuilder = traverseInOrder(node.right, stringBuilder);
+        }
+        return stringBuilder;
+    }
+
+    String getBreadthFirst() {
+        StringBuilder str = new StringBuilder();
+        if (rootNode == null) {
+            return "";
+        }
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        nodeQueue.add(rootNode);
+
+        while (!nodeQueue.isEmpty()) {
+            TreeNode removedNode = nodeQueue.remove();
+            str.append(removedNode.value + " ");
+            if (removedNode.left != null) {
+                nodeQueue.add(removedNode.left);
+            }
+            if (removedNode.right != null) {
+                nodeQueue.add(removedNode.right);
+            }
+        }
+        return str.toString();
+    }
+
+
+
 
     private class TreeNode {
         int value;

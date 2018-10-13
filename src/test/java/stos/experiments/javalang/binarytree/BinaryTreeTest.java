@@ -12,6 +12,28 @@ class BinaryTreeTest {
     private static final int DELETE_VALUE = 88;
     private static final int[] TEST_VALUES = new int[]{1, 4, 7, 2, 8, 10, 67, 3, 6, DELETE_VALUE, 33, 44};
 
+    /*
+     * Test tree
+     *                                1
+     *                                 \
+     *                                  4
+     *                                /   \
+     *                               2     7
+     *                                \   / \
+     *                                 3 6   8
+     *                                        \
+     *                                         10
+     *                                           \
+     *                                            67
+     *                                           / \
+     *                                          33  88
+     *                                            \
+     *                                             44
+     */
+
+    private static final String IN_ORDER_STRING = "1 2 3 4 6 7 8 10 33 44 67 88 ";
+    private static final String BREADTH_ORDER_STRING = "1 4 2 7 3 6 8 10 67 33 88 44 ";
+
     @BeforeEach
     void setUp() {
         TREE = new BinaryTree();
@@ -38,4 +60,15 @@ class BinaryTreeTest {
         TREE.delete(DELETE_VALUE);
         assertThat(TREE.contains(DELETE_VALUE), is(false));
     }
+
+    @Test
+    void traverse_tree_in_order_depth_first() {
+        assertThat(TREE.getInOrderDepthFirst(), is(IN_ORDER_STRING));
+    }
+
+    @Test
+    void traverse_tree_in_breadth_order() {
+        assertThat(TREE.getBreadthFirst(), is(BREADTH_ORDER_STRING));
+    }
+
 }
