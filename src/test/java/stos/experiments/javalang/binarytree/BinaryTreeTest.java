@@ -123,6 +123,7 @@ class BinaryTreeTest {
 
         /**
          * A simple way to implement compareTo...madness!
+         * Strings already have a compareTo that compares lexicographically
          */
         @Override
         public int compareTo(Word o) {
