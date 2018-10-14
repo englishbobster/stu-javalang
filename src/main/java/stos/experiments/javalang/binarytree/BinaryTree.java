@@ -10,8 +10,8 @@ class BinaryTree<T extends Comparable<T>> {
     BinaryTree() { }
 
     /**
-     * - If the new node’s value is lower than the current node’s, we go to the left child
-     * - If the new node’s value is greater than the current node’s, we go to the right child
+     * - If the new node’s value is lower (comparable < 0) than the current node’s, we go to the left child
+     * - If the new node’s value is greater (comparable > 0) than the current node’s, we go to the right child
      * - When the current node is null, we’ve reached a leaf node and we can insert the new node in that position
      */
     void insert(T value) {
@@ -119,6 +119,9 @@ class BinaryTree<T extends Comparable<T>> {
         return str.toString();
     }
 
+    /**
+     * Anything we use for a value better implement Comparable interface.
+     */
     private class TreeNode<U extends Comparable<T>> {
         U value;
         TreeNode<U> left;
