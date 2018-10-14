@@ -66,7 +66,7 @@ class BinaryTree<T extends Comparable<T>> {
             if (current.left == null) {
                 return current.right;
             }
-            T smallestValue = (T) findSmallestValue(current.right);
+            T smallestValue = findSmallestValue(current.right);
             current.value = smallestValue;
             current.right = deleteRecursive(current.right, smallestValue);
             return current;
@@ -80,7 +80,7 @@ class BinaryTree<T extends Comparable<T>> {
     }
 
     private T findSmallestValue(TreeNode<T> current) {
-        return current.left == null ? current.value : (T) findSmallestValue(current.left);
+        return current.left == null ? current.value : findSmallestValue(current.left);
     }
 
     String getInOrderDepthFirst() {
@@ -107,7 +107,7 @@ class BinaryTree<T extends Comparable<T>> {
         nodeQueue.add(rootNode);
 
         while (!nodeQueue.isEmpty()) {
-            TreeNode removedNode = nodeQueue.remove();
+            TreeNode<T> removedNode = nodeQueue.remove();
             str.append(removedNode.value).append(" ");
             if (removedNode.left != null) {
                 nodeQueue.add(removedNode.left);
@@ -119,12 +119,12 @@ class BinaryTree<T extends Comparable<T>> {
         return str.toString();
     }
 
-    private class TreeNode<T extends Comparable<T>> {
-        T value;
-        TreeNode left;
-        TreeNode right;
+    private class TreeNode<U extends Comparable<T>> {
+        U value;
+        TreeNode<U> left;
+        TreeNode<U> right;
 
-        TreeNode(T value) {
+        TreeNode(U value) {
             this.value = value;
             left = null;
             right = null;
