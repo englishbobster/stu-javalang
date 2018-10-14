@@ -8,7 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 class BinaryTreeTest {
 
-    private static BinaryTree TREE;
+    private BinaryTree TREE;
     private static final int DELETE_VALUE = 88;
     private static final int[] TEST_VALUES = new int[]{1, 4, 7, 2, 8, 10, 67, 3, 6, DELETE_VALUE, 33, 44};
 
@@ -32,7 +32,16 @@ class BinaryTreeTest {
      */
 
     private static final String IN_ORDER_STRING = "1 2 3 4 6 7 8 10 33 44 67 88 ";
+    private static final String IN_ORDER_STRING_WORD = "Stu Help Elevator Kebab Mongolian Necessary Traverse Solarian ";
     private static final String BREADTH_ORDER_STRING = "1 4 2 7 3 6 8 10 67 33 88 44 ";
+    private static final String BREADTH_ORDER_STRING_WORD = "Stu Mongolian Elevator Traverse Help Kebab Necessary Solarian ";
+
+    private BinaryTree<Word> wordTree;
+    private Word DELETE_GENERIC_VALUE = new Word("Elevator");
+    private Word[] words = new Word[]{new Word("Stu"), new Word("Mongolian"),
+            new Word("Traverse"), DELETE_GENERIC_VALUE, new Word("Kebab"),
+            new Word("Solarian"), new Word("Necessary"), new Word("Help")};
+
 
     @BeforeEach
     void setUp() {
@@ -40,18 +49,35 @@ class BinaryTreeTest {
         for (int value : TEST_VALUES) {
             TREE.insert(value);
         }
+
+        wordTree = new BinaryTree<>();
+        for (Word word : words) {
+            wordTree.insert(word);
+        }
     }
 
     @Test
-    void check_that_a_new_binary_tree_has_a_new_node_when_inserting() {
+    void check_that_we_can_insert_values_in_a_tree() {
         for (int value : TEST_VALUES) {
             assertThat(TREE.contains(value), is(true));
         }
     }
 
     @Test
-    void check_that_a_new_binary_tree_does_not_have_a_value() {
+    void check_that_we_can_insert_generic_values_in_a_tree() {
+        for (Word word : words) {
+            assertThat(wordTree.contains(word), is(true));
+        }
+    }
+
+    @Test
+    void check_that_a_non_existant_value_is_not_found() {
         assertThat(TREE.contains(100), is(false));
+    }
+
+    @Test
+    void check_that_a_non_existant_generic_value_is_not_found() {
+        assertThat(wordTree.contains(new Word("Hippopotamus")), is(false));
     }
 
     @Test
@@ -62,13 +88,53 @@ class BinaryTreeTest {
     }
 
     @Test
+    void check_that_a_generic_entry_is_deleted_from_the_tree() {
+        assertThat(wordTree.contains(DELETE_GENERIC_VALUE), is(true));
+        wordTree.delete(DELETE_GENERIC_VALUE);
+        assertThat(wordTree.contains(DELETE_GENERIC_VALUE), is(false));
+    }
+
+    @Test
     void traverse_tree_in_order_depth_first() {
         assertThat(TREE.getInOrderDepthFirst(), is(IN_ORDER_STRING));
     }
 
     @Test
+    void traverse_tree_in_order_depth_first_generic() {
+        assertThat(wordTree.getInOrderDepthFirst(), is(IN_ORDER_STRING_WORD));
+    }
+
+    @Test
     void traverse_tree_in_breadth_order() {
         assertThat(TREE.getBreadthFirst(), is(BREADTH_ORDER_STRING));
+    }
+
+    @Test
+    void traverse_tree_in_breadth_order_generic() {
+        assertThat(wordTree.getBreadthFirst(), is(BREADTH_ORDER_STRING_WORD));
+    }
+
+    public class Word implements Comparable<Word> {
+        String theWord;
+
+        public Word(String theWord) {
+            this.theWord = theWord;
+        }
+
+        /**
+         * A simple way to implement compareTo...madness!
+         */
+        @Override
+        public int compareTo(Word o) {
+            int thisHash = theWord.hashCode();
+            int thatHash = o.theWord.hashCode();
+            return thisHash - thatHash;
+        }
+
+        @Override
+        public String toString() {
+            return theWord;
+        }
     }
 
 }
