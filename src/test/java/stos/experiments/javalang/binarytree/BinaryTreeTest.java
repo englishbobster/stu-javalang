@@ -13,8 +13,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 class BinaryTreeTest {
 
-    public static final int ABSENT_INTEGER = 100;
-    public static final String ABSENT_WORD = "Hippopotamus";
+    private static final int ABSENT_INTEGER = 100;
+    private static final String ABSENT_WORD = "Hippopotamus";
     private BinaryTree TREE;
     private static final int DELETE_VALUE = 88;
     private static final int[] TEST_VALUES = new int[]{1, 4, 7, 2, 8, 10, 67, 3, 6, DELETE_VALUE, 33, 44};
