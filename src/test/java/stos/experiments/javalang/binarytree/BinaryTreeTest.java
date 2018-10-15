@@ -11,6 +11,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 class BinaryTreeTest {
 
+    public static final int ABSENT_INTEGER = 100;
+    public static final String ABSENT_WORD = "Hippopotamus";
     private BinaryTree TREE;
     private static final int DELETE_VALUE = 88;
     private static final int[] TEST_VALUES = new int[]{1, 4, 7, 2, 8, 10, 67, 3, 6, DELETE_VALUE, 33, 44};
@@ -75,12 +77,12 @@ class BinaryTreeTest {
 
     @Test
     void check_that_a_non_existant_value_is_not_found() {
-        assertThat(TREE.contains(100), is(false));
+        assertThat(TREE.contains(ABSENT_INTEGER), is(false));
     }
 
     @Test
     void check_that_a_non_existant_generic_value_is_not_found() {
-        assertThat(wordTree.contains(new Word("Hippopotamus")), is(false));
+        assertThat(wordTree.contains(new Word(ABSENT_WORD)), is(false));
     }
 
     @Test
