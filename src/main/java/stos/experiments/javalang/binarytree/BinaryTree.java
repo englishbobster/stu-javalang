@@ -2,11 +2,12 @@ package stos.experiments.javalang.binarytree;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-class BinaryTree<T extends Comparable<T>> {
+class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
 
     private TreeNode<T> rootNode = null;
 
@@ -120,6 +121,11 @@ class BinaryTree<T extends Comparable<T>> {
             }
         }
         return order;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return getInOrderDepthFirst().iterator();
     }
 
     /**

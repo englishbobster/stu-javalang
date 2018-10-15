@@ -3,9 +3,11 @@ package stos.experiments.javalang.binarytree;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -127,6 +129,30 @@ class BinaryTreeTest {
         assertThat(str, is(BREADTH_ORDER_STRING_WORD));
     }
 
+    /**
+     * Trusting to autoboxing here (or is it autounboxing?)
+     */
+    @Test
+    void should_be_able_to_iterate_through_the_tree_with_for_each() {
+        List<String> ints = Arrays.asList(IN_ORDER_STRING.split(" "));
+        int i = 0;
+        for (Object anInt : TREE) {
+            Integer in = (Integer) anInt;
+            assertThat(in.toString(), is(equalTo(ints.get(i))));
+            i++;
+        }
+    }
+
+    @Test
+    void should_be_able_to_iterate_through_the_generic_tree_with_for_each() {
+        List<String> words = Arrays.asList(IN_ORDER_STRING_WORD.split(" "));
+        int i = 0;
+        for (Word word : wordTree) {
+            assertThat(word.toString(), is(equalTo(words.get(i))));
+            i++;
+        }
+    }
+
     public class Word implements Comparable<Word> {
         String theWord;
 
@@ -150,5 +176,4 @@ class BinaryTreeTest {
             return theWord;
         }
     }
-
 }
