@@ -123,6 +123,12 @@ class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
         return order;
     }
 
+    /**
+     * The danger with this way of implementing iterable
+     * is of course if we now add a node, and it appears in the middle of the list.
+     * This implementation is obviously not thread safe.
+     * Why choose Depth first over Breadth first?
+     */
     @Override
     public Iterator<T> iterator() {
         return getInOrderDepthFirst().iterator();
