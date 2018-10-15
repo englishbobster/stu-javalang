@@ -1,6 +1,9 @@
 package stos.experiments.javalang.binarytree;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 class BinaryTree<T extends Comparable<T>> {
@@ -83,32 +86,32 @@ class BinaryTree<T extends Comparable<T>> {
         return current.left == null ? current.value : findSmallestValue(current.left);
     }
 
-    String getInOrderDepthFirst() {
-        StringBuilder str = new StringBuilder();
-        str = traverseInOrder(rootNode, str);
-        return str.toString();
+    List<T> getInOrderDepthFirst() {
+        List<T> order = new ArrayList<>();
+        order = traverseInOrder(rootNode, order);
+        return order;
     }
 
-    private StringBuilder traverseInOrder(TreeNode<T> node, StringBuilder stringBuilder) {
+    private List<T> traverseInOrder(TreeNode<T> node, List<T> order) {
         if (node != null) {
-            stringBuilder = traverseInOrder(node.left, stringBuilder);
-            stringBuilder.append(node.value).append(" ");
-            stringBuilder = traverseInOrder(node.right, stringBuilder);
+            order = traverseInOrder(node.left, order);
+            order.add(node.value);
+            order = traverseInOrder(node.right, order);
         }
-        return stringBuilder;
+        return order;
     }
 
-    String getBreadthFirst() {
-        StringBuilder str = new StringBuilder();
-        if (rootNode == null) {
-            return "";
-        }
+    List<T> getBreadthFirst() {
         Queue<TreeNode<T>> nodeQueue = new LinkedList<>();
+        List<T> order = new ArrayList<>();
+        if (rootNode == null) {
+            return Collections.emptyList();
+        }
         nodeQueue.add(rootNode);
 
         while (!nodeQueue.isEmpty()) {
             TreeNode<T> removedNode = nodeQueue.remove();
-            str.append(removedNode.value).append(" ");
+            order.add(removedNode.value);
             if (removedNode.left != null) {
                 nodeQueue.add(removedNode.left);
             }
@@ -116,7 +119,7 @@ class BinaryTree<T extends Comparable<T>> {
                 nodeQueue.add(removedNode.right);
             }
         }
-        return str.toString();
+        return order;
     }
 
     /**

@@ -3,6 +3,9 @@ package stos.experiments.javalang.binarytree;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -31,10 +34,10 @@ class BinaryTreeTest {
      *                                             44
      */
 
-    private static final String IN_ORDER_STRING = "1 2 3 4 6 7 8 10 33 44 67 88 ";
-    private static final String IN_ORDER_STRING_WORD = "Stu Help Elevator Kebab Mongolian Necessary Traverse Solarian ";
-    private static final String BREADTH_ORDER_STRING = "1 4 2 7 3 6 8 10 67 33 88 44 ";
-    private static final String BREADTH_ORDER_STRING_WORD = "Stu Mongolian Elevator Traverse Help Kebab Necessary Solarian ";
+    private static final String IN_ORDER_STRING = "1 2 3 4 6 7 8 10 33 44 67 88";
+    private static final String IN_ORDER_STRING_WORD = "Stu Help Elevator Kebab Mongolian Necessary Traverse Solarian";
+    private static final String BREADTH_ORDER_STRING = "1 4 2 7 3 6 8 10 67 33 88 44";
+    private static final String BREADTH_ORDER_STRING_WORD = "Stu Mongolian Elevator Traverse Help Kebab Necessary Solarian";
 
     private BinaryTree<Word> wordTree;
     private Word DELETE_GENERIC_VALUE = new Word("Elevator");
@@ -96,22 +99,30 @@ class BinaryTreeTest {
 
     @Test
     void traverse_tree_in_order_depth_first() {
-        assertThat(TREE.getInOrderDepthFirst(), is(IN_ORDER_STRING));
+        List<Integer> inOrderDepthFirst = TREE.getInOrderDepthFirst();
+        String str = inOrderDepthFirst.stream().map(i -> Integer.toString(i)).collect(Collectors.joining(" "));
+        assertThat(str, is(IN_ORDER_STRING));
     }
 
     @Test
     void traverse_tree_in_order_depth_first_generic() {
-        assertThat(wordTree.getInOrderDepthFirst(), is(IN_ORDER_STRING_WORD));
+        List<Word> inOrderDepthFirst = wordTree.getInOrderDepthFirst();
+        String str = inOrderDepthFirst.stream().map(word -> word.toString()).collect(Collectors.joining(" "));
+        assertThat(str, is(IN_ORDER_STRING_WORD));
     }
 
     @Test
     void traverse_tree_in_breadth_order() {
-        assertThat(TREE.getBreadthFirst(), is(BREADTH_ORDER_STRING));
+        List<Integer> breadthFirst = TREE.getBreadthFirst();
+        String str = breadthFirst.stream().map(i -> Integer.toString(i)).collect(Collectors.joining(" "));
+        assertThat(str, is(BREADTH_ORDER_STRING));
     }
 
     @Test
     void traverse_tree_in_breadth_order_generic() {
-        assertThat(wordTree.getBreadthFirst(), is(BREADTH_ORDER_STRING_WORD));
+        List<Word> breadthFirst = wordTree.getBreadthFirst();
+        String str = breadthFirst.stream().map(word -> word.toString()).collect(Collectors.joining(" "));
+        assertThat(str, is(BREADTH_ORDER_STRING_WORD));
     }
 
     public class Word implements Comparable<Word> {
