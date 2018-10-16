@@ -1,5 +1,6 @@
 package stos.experiments.javalang.Graph;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -7,13 +8,19 @@ import java.util.List;
  * Vertex or Node?...go with Vertex to try and avoid name conflicts in other imports.
  * Besides, Vertex sounds more impressive.
  */
-public class Vertex {
+class Vertex {
 
+    private List<Edge> edges;
 
-    public void add(Edge edge) {
+    Vertex() {
+        edges = new ArrayList<>();
     }
 
-    public List<Edge> getEdges() {
-        return Collections.emptyList();
+    void add(Edge edge) {
+        edges.add(edge);
+    }
+
+    List<Edge> getEdges() {
+        return edges;
     }
 }

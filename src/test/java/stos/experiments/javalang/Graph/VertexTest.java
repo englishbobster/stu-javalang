@@ -9,30 +9,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 class VertexTest {
 
-    /* Test graph, 6 vertices and 8 edges
-    *                          +---+           +---+
-    *      +-------------------> B +-----------> F +----------+
-    *      |                   +-+-+           +-^-+          |
-    *    +-+-+                   |               |            |
-    *    | A |                   |               |            |
-    *    +-+-+                   |   +---+       |            |
-    *      |                     +---> D +-------+            |
-    *      |                         +-+-+                    |
-    *      |                           |                    +-v-+
-    *      |                           +--------------------> E |
-    *      |                                                +-^-+
-    *      |                                                  |
-    *      |                         +---+                    |
-    *      +-------------------------> C +--------------------+
-    *                                +---+
-    */
-
     @Test
     void should_have_a_list_of_edges() {
-        Vertex graphVertex = new Vertex();
-        graphVertex.add(new Edge());
-        List<Edge> edges = graphVertex.getEdges();
+        Vertex nodeA = new Vertex();
+        Vertex nodeB = new Vertex();
+        nodeA.add(new Edge(nodeB, 10));
+        List<Edge> edges = nodeA.getEdges();
         assertThat(edges.size(), is(1));
     }
-
 }
