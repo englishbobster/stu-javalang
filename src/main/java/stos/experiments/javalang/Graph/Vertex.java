@@ -1,26 +1,23 @@
 package stos.experiments.javalang.Graph;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /**
  * Vertex or Node?...go with Vertex to try and avoid name conflicts in other imports.
  * Besides, Vertex sounds more impressive.
  */
+@Getter
+@Setter
+@RequiredArgsConstructor
+@EqualsAndHashCode
 class Vertex {
+    private final String label;
 
-    private List<Edge> edges;
-
-    Vertex() {
-        edges = new ArrayList<>();
-    }
-
-    void add(Edge edge) {
-        edges.add(edge);
-    }
-
-    List<Edge> getEdges() {
-        return edges;
+    @Override
+    public String toString() {
+        return label;
     }
 }

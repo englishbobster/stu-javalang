@@ -1,5 +1,6 @@
 package stos.experiments.javalang.Graph;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -7,17 +8,37 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 class EdgeTest {
 
+    private Vertex a;
+    private Vertex z;
+    private Edge edge;
+
+    @BeforeEach
+    void setUp() {
+        a = new Vertex("A");
+        z = new Vertex("Z");
+        edge = new Edge(a, z, 10);
+    }
+
     @Test
-    void edge_should_have_a_terminating_vertex_end() {
-        Vertex z = new Vertex();
-        Edge edge = new Edge(z, 10);
+    void edge_should_have_terminating_vertex_ends() {
+        assertThat(edge.getAEnd(), is(a));
         assertThat(edge.getZEnd(), is(z));
     }
 
     @Test
     void edge_should_have_retrievable_value() {
-        Vertex z = new Vertex();
-        Edge edge = new Edge(z, 10);
-        assertThat(edge.getValue(), is(10));
+         assertThat(edge.getValue(), is(10));
+    }
+
+    @Test
+    void edge_starts_with() {
+        assertThat(edge.startsAt(a), is(true));
+        assertThat(edge.startsAt(z), is(false));
+    }
+
+    @Test
+    void edge_ends_with() {
+        assertThat(edge.endsAt(z), is(true));
+        assertThat(edge.endsAt(a), is(false));
     }
 }
