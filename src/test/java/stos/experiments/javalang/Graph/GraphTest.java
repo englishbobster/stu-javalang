@@ -1,11 +1,15 @@
 package stos.experiments.javalang.Graph;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GraphTest {
 
@@ -81,28 +85,22 @@ public class GraphTest {
         testGraph = new Graph(vertices, edges);
     }
 
-/*    @Test
-    void should_get_a_simple_route_between_b_e_consisting_of_one_edge() {
-        Route expectedRoute = new Route();
-        expectedRoute.addToRoute(be);
-        List<Route> routes = testGraph.getRoutes(b, e);
+    @Test
+    void should_get_a_simple_route_between_a_b() {
+        Route expectedRoute = new Route(a, b);
+        List<Route> routes = testGraph.getRoutes(a, b);
         assertThat(routes.size(), is(1));
         assertThat(routes.get(0), is(expectedRoute));
     }
 
     @Test
-    void should_get_a_route_between_a_e_consisting_of_two_edges() {
-        Route expectedRoute = new Route();
-        expectedRoute.addToRoute(ab);
-        expectedRoute.addToRoute(be);
-        List<Route> routes = testGraph.getRoutes(a, e);
-        assertThat(routes.size(), is(1));
-        assertThat(routes.get(0), is(expectedRoute));
-    }*/
-
-    @Test
-    void xxx() {
+    void should_find_all_routes_in_the_test_graph() {
         List<Route> routes = testGraph.getRoutes(a, f);
-        routes.forEach(route -> System.out.println(route));
+        Route route1 = new Route(a, b, e, f);
+        Route route2 = new Route(a, b, d, f);
+        Route route3 = new Route(a, b, d, e, f);
+        Route route4 = new Route(a, c, f);
+        assertThat(routes.size(), is(4));
+        assertThat(routes, Matchers.hasItems(route1, route2, route3, route4));
     }
 }

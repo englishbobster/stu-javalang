@@ -20,6 +20,6 @@ class Edge {
 
     @Override
     public String toString() {
-        return aEnd.getLabel() + "<--[" + value + "]-->" + zEnd.getLabel();
+        return aEnd.getLabel() + "-->[" + value + "]-->" + zEnd.getLabel();
     }
 }

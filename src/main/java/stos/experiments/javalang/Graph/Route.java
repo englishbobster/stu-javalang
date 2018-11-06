@@ -17,11 +17,6 @@ class Route {
         verticesInRoute = new ArrayList<>();
     }
 
-    Route(Vertex vertex) {
-        verticesInRoute = new ArrayList<>();
-        verticesInRoute.add(vertex);
-    }
-
     Route(Vertex... vertex ) {
         verticesInRoute = new ArrayList<>();
         verticesInRoute.addAll(Arrays.asList(vertex));
