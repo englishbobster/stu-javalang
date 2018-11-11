@@ -1,6 +1,5 @@
 package stos.experiments.javalang.Graph;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +9,7 @@ import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItems;
 
 public class GraphTest {
 
@@ -20,6 +20,7 @@ public class GraphTest {
     private static Vertex e;
     private static Vertex f;
     private static Vertex g;
+    private static Vertex h;
     private static Edge ab;
     private static Edge ac;
     private static Edge be;
@@ -28,9 +29,10 @@ public class GraphTest {
     private static Edge df;
     private static Edge ef;
     private static Edge cf;
+    private static Edge ch;
     private static Graph testGraph;
 
-    /* Test graph (positively weighted), 6 vertices and 8 edges
+    /* Test graph (positively weighted), 8 vertices and 9 edges
      *                          +---+           +---+
      *      +-------------------> B +-----------> E +----------+
      *      |        10         +-+-+    15     +-^-+          |
@@ -46,7 +48,12 @@ public class GraphTest {
      *      |                         +---+                    |
      *      +-------------------------> C +--------------------+
      *                                +---+          10
+     *                                  |
+     *                                  |                       +---+
+     *                                  +-----------------------> H |
+     *                                               4          +---+
      */
+
     @BeforeAll
     static void setUpClass() {
         Set<Vertex> vertices = new HashSet<>();
@@ -64,6 +71,7 @@ public class GraphTest {
         vertices.add(f);
         g = new Vertex("G");
         vertices.add(g);
+        h = new Vertex("H");
 
         Set<Edge> edges = new HashSet<>();
         ab = new Edge(a, b, 10);
@@ -82,14 +90,18 @@ public class GraphTest {
         edges.add(ef);
         cf = new Edge(c, f, 10);
         edges.add(cf);
+        ch = new Edge(c, h, 4);
+        edges.add(ch);
         testGraph = new Graph(vertices, edges);
     }
 
     @Test
     void should_get_a_simple_route_between_a_b() {
         Route expectedRoute = new Route(a, b);
+        expectedRoute.addEdgeToRoute(ab);
         List<Route> routes = testGraph.getRoutes(a, b);
         assertThat(routes.size(), is(1));
+        routes.forEach(route -> System.out.println(route.getEdgesInRoute()));
         assertThat(routes.get(0), is(expectedRoute));
     }
 
@@ -97,10 +109,16 @@ public class GraphTest {
     void should_find_all_routes_in_the_test_graph() {
         List<Route> routes = testGraph.getRoutes(a, f);
         Route route1 = new Route(a, b, e, f);
+        route1.addEdgesToRoute(ab, be, ef);
         Route route2 = new Route(a, b, d, f);
+        route2.addEdgesToRoute(ab, bd, df);
         Route route3 = new Route(a, b, d, e, f);
+        route3.addEdgesToRoute(ab, bd, de, ef);
         Route route4 = new Route(a, c, f);
+        route4.addEdgesToRoute(ac, cf);
         assertThat(routes.size(), is(4));
-        assertThat(routes, Matchers.hasItems(route1, route2, route3, route4));
+        assertThat(routes, hasItems(route1, route2, route3, route4));
+        assertThat(route1.getEdgesInRoute(), hasItems(ab, be, ef));
     }
+
 }
