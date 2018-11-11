@@ -101,7 +101,6 @@ public class GraphTest {
         expectedRoute.addEdgeToRoute(ab);
         List<Route> routes = testGraph.getRoutes(a, b);
         assertThat(routes.size(), is(1));
-        routes.forEach(route -> System.out.println(route.getEdgesInRoute()));
         assertThat(routes.get(0), is(expectedRoute));
     }
 
@@ -119,6 +118,9 @@ public class GraphTest {
         assertThat(routes.size(), is(4));
         assertThat(routes, hasItems(route1, route2, route3, route4));
         assertThat(route1.getEdgesInRoute(), hasItems(ab, be, ef));
+        assertThat(route2.getEdgesInRoute(), hasItems(ab, bd, df));
+        assertThat(route3.getEdgesInRoute(), hasItems(ab, bd, de, ef));
+        assertThat(route4.getEdgesInRoute(), hasItems(ac, cf));
     }
 
 }
