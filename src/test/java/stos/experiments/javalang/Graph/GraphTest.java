@@ -10,6 +10,7 @@ import java.util.Set;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GraphTest {
 
@@ -96,6 +97,18 @@ public class GraphTest {
     }
 
     @Test
+    void should_get_an_empty_route_between_a_g() {
+        List<Route> routes = testGraph.getRoutes(a, g);
+        assertTrue(routes.isEmpty());
+    }
+
+    @Test
+    void should_get_an_empty_route_between_f_a_proving_that_the_graph_is_directed() {
+        List<Route> routes = testGraph.getRoutes(f, a);
+        assertTrue(routes.isEmpty());
+    }
+
+    @Test
     void should_get_a_simple_route_between_a_b() {
         Route expectedRoute = new Route(a, b);
         expectedRoute.addEdgeToRoute(ab);
@@ -122,5 +135,4 @@ public class GraphTest {
         assertThat(route3.getEdgesInRoute(), hasItems(ab, bd, de, ef));
         assertThat(route4.getEdgesInRoute(), hasItems(ac, cf));
     }
-
 }
