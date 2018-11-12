@@ -145,4 +145,11 @@ public class GraphTest {
         assertThat(route, is(equalTo(expected)));
         assertThat(route.getCost(), is(24));
     }
+
+    @Test
+    void should_return_empty_route_when_finding_cheapest_for_vertices_with_no_path() {
+        Route route = testGraph.findCheapestRoute(a, g);
+        assertThat(route, is(equalTo(Route.emptyRoute())));
+        assertThat(route.getCost(), is(0));
+    }
 }
