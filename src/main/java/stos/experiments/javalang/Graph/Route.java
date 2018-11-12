@@ -48,12 +48,12 @@ class Route implements Iterable<Vertex>{
     }
 
     int getCost() {
-        return edgesInRoute.stream().map(edge -> edge.getValue()).reduce((val, acc) -> acc + val).orElse(0);
+        return edgesInRoute.stream().map(Edge::getValue).reduce((val, acc) -> acc + val).orElse(0);
     }
 
     @Override
     public String toString() {
-        return verticesInRoute.stream().map(vertex -> vertex.toString()).collect(Collectors.joining("::"));
+        return verticesInRoute.stream().map(Vertex::toString).collect(Collectors.joining("::"));
     }
 
     @Override

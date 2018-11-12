@@ -10,38 +10,39 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Graph {
+class Graph {
 
     private Set<Vertex> vertices;
     private Set<Edge> edges;
 
-    public Graph(Set<Vertex> vertices, Set<Edge> edges) {
+    Graph(Set<Vertex> vertices, Set<Edge> edges) {
         this.vertices = vertices;
         this.edges = edges;
     }
 
     /**
      * Gets all possible routes between two vertices(nodes).
+     *
      * @param a The start vertex.
      * @param z The end vertex.
      * @return A list of Route objects @link Route#Route() which contain the corresponding lists of vertices and edges.
      */
-    public List<Route> getRoutes(Vertex a, Vertex z) {
+    List<Route> getRoutes(Vertex a, Vertex z) {
         return getRoutes(a, a, z, new Route());
     }
 
     /**
      * Find the cheapest route between two vertices(nodes).
+     *
      * @param a The start vertex.
      * @param z The end vertex.
      * @return The route with the cheapest cost.
      */
-    public Route findCheapestRoute(Vertex a, Vertex z) {
+    Route findCheapestRoute(Vertex a, Vertex z) {
         Map<Route, Integer> route2Cost = getRoutes(a, z).stream()
                 .collect(Collectors.toMap(Function.identity(), Route::getCost));
         Optional<Map.Entry<Route, Integer>> minRouteEntry = route2Cost
-                .entrySet().stream()
-                .min(Comparator.comparingInt(Map.Entry::getValue));
+                .entrySet().stream().min(Comparator.comparingInt(Map.Entry::getValue));
         if (minRouteEntry.isPresent()) {
             return minRouteEntry.get().getKey();
         }
@@ -77,9 +78,9 @@ public class Graph {
 
     private List<Vertex> getNextVertices(Vertex a) {
         return edges.stream()
-                    .filter(edge -> edge.startsAt(a))
-                    .map(edge -> edge.getZEnd())
-                    .collect(Collectors.toList());
+                .filter(edge -> edge.startsAt(a))
+                .map(Edge::getZEnd)
+                .collect(Collectors.toList());
     }
 
     private Optional<Edge> resolveEdgeBetween(Vertex a, Vertex z) {

@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GraphTest {
+class GraphTest {
 
     private static Vertex a;
     private static Vertex b;

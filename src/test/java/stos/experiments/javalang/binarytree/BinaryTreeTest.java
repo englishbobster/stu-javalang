@@ -153,10 +153,10 @@ class BinaryTreeTest {
         }
     }
 
-    public class Word implements Comparable<Word> {
+    public static class Word implements Comparable<Word> {
         String theWord;
 
-        public Word(String theWord) {
+        Word(String theWord) {
             this.theWord = theWord;
         }
 
