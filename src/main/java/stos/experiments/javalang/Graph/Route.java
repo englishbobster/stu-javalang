@@ -47,6 +47,10 @@ class Route implements Iterable<Vertex>{
         edgesInRoute.addAll(Arrays.asList(edges));
     }
 
+    int getCost() {
+        return edgesInRoute.stream().map(edge -> edge.getValue()).reduce((val, acc) -> acc + val).orElse(0);
+    }
+
     @Override
     public String toString() {
         return verticesInRoute.stream().map(vertex -> vertex.toString()).collect(Collectors.joining("::"));
@@ -55,9 +59,5 @@ class Route implements Iterable<Vertex>{
     @Override
     public Iterator<Vertex> iterator() {
         return verticesInRoute.iterator();
-    }
-
-    public Integer getCost() {
-        return edgesInRoute.stream().map(edge -> edge.getValue()).reduce((val, acc) -> acc + val).get();
     }
 }

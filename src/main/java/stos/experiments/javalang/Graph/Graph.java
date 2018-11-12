@@ -21,7 +21,7 @@ public class Graph {
     }
 
     /**
-     * Gets all possible roots between two vertices(nodes).
+     * Gets all possible routes between two vertices(nodes).
      * @param a The start vertex.
      * @param z The end vertex.
      * @return A list of Route objects @link Route#Route() which contain the corresponding lists of vertices and edges.
@@ -30,10 +30,22 @@ public class Graph {
         return getRoutes(a, a, z, new Route());
     }
 
+    /**
+     * Find the cheapest route between two vertices(nodes).
+     * @param a The start vertex.
+     * @param z The end vertex.
+     * @return The route with the cheapest cost.
+     */
     public Route findCheapestRoute(Vertex a, Vertex z) {
-        List<Route> routes = getRoutes(a, z);
-        Map<Route, Integer> route2Cost = routes.stream().collect(Collectors.toMap(Function.identity(), Route::getCost));
-        return route2Cost.entrySet().stream().min(Comparator.comparingInt(Map.Entry::getValue)).get().getKey();
+        Map<Route, Integer> route2Cost = getRoutes(a, z).stream()
+                .collect(Collectors.toMap(Function.identity(), Route::getCost));
+        Optional<Map.Entry<Route, Integer>> minRouteEntry = route2Cost
+                .entrySet().stream()
+                .min(Comparator.comparingInt(Map.Entry::getValue));
+        if (minRouteEntry.isPresent()) {
+            return minRouteEntry.get().getKey();
+        }
+        return Route.emptyRoute();
     }
 
     private List<Route> getRoutes(Vertex previous, Vertex a, Vertex z, Route route) {
