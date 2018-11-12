@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
@@ -134,5 +135,14 @@ public class GraphTest {
         assertThat(route2.getEdgesInRoute(), hasItems(ab, bd, df));
         assertThat(route3.getEdgesInRoute(), hasItems(ab, bd, de, ef));
         assertThat(route4.getEdgesInRoute(), hasItems(ac, cf));
+    }
+
+    @Test
+    void should_find_the_cheapest_route() {
+        Route route = testGraph.findCheapestRoute(a, f);
+        Route expected = new Route(a, b, d, f);
+        expected.addEdgesToRoute(ab, bd, df);
+        assertThat(route, is(equalTo(expected)));
+        assertThat(route.getCost(), is(24));
     }
 }

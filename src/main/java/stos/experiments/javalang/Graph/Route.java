@@ -56,4 +56,8 @@ class Route implements Iterable<Vertex>{
     public Iterator<Vertex> iterator() {
         return verticesInRoute.iterator();
     }
+
+    public Integer getCost() {
+        return edgesInRoute.stream().map(edge -> edge.getValue()).reduce((val, acc) -> acc + val).get();
+    }
 }
