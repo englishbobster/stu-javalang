@@ -3,6 +3,7 @@ package stos.experiments.javalang.Graph;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -51,13 +52,13 @@ class Graph {
 
     private List<Route> getRoutes(Vertex previous, Vertex a, Vertex z, Route route) {
         route = new Route(route);
-        route.addVertexToRoute(a);
         Optional<Edge> edgeOptional = resolveEdgeBetween(previous, a);
         if (edgeOptional.isPresent()) {
             if (!route.getEdgesInRoute().contains(edgeOptional.get())) {
                 route.addEdgeToRoute(edgeOptional.get());
             }
         }
+        route.addVertexToRoute(a);
         if (a.equals(z)) {
             List<Route> routes = new ArrayList<>();
             routes.add(route);
@@ -76,15 +77,26 @@ class Graph {
         return routes;
     }
 
-    private List<Vertex> getNextVertices(Vertex a) {
-        return edges.stream()
+    private Set<Vertex> getNextVertices(Vertex a) {
+        List<Vertex> first = edges.stream()
                 .filter(edge -> edge.startsAt(a))
                 .map(Edge::getZEnd)
                 .collect(Collectors.toList());
+        List<Vertex> second = edges.stream()
+                .filter(edge -> (edge.isBi() && edge.endsAt(a)))
+                .map(Edge::getAEnd)
+                .collect(Collectors.toList());
+        Set<Vertex> result = new HashSet<>();
+        result.addAll(first);
+        result.addAll(second);
+
+        return result;
     }
 
     private Optional<Edge> resolveEdgeBetween(Vertex a, Vertex z) {
         return edges.stream()
-                .filter(edge -> edge.getAEnd().equals(a) && edge.getZEnd().equals(z)).findFirst();
+                .filter(edge -> edge.getAEnd().equals(a) && edge.getZEnd().equals(z)
+                        || (edge.isBi() && edge.getAEnd().equals(z) && edge.getZEnd().equals(a)))
+                .findFirst();
     }
 }

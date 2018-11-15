@@ -12,6 +12,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static stos.experiments.javalang.Graph.Directionality.*;
 
 class GraphTest {
 
@@ -28,12 +29,10 @@ class GraphTest {
     private static Edge be;
     private static Edge bd;
     private static Edge de;
-    private static Edge ed;
     private static Edge df;
     private static Edge ef;
     private static Edge cf;
     private static Edge ch;
-    private static Edge hc;
     private static Graph testGraph;
 
     /* Test graph (positively weighted), 8 vertices and 9 edges, bidirectional edges allowed
@@ -82,28 +81,24 @@ class GraphTest {
         h = new Vertex("H");
 
         Set<Edge> edges = new HashSet<>();
-        ab = new Edge(a, b, 10);
+        ab = new Edge(a, b, UNIDIR,10);
         edges.add(ab);
-        ac = new Edge(a, c, 15);
+        ac = new Edge(a, c, UNIDIR,15);
         edges.add(ac);
-        be = new Edge(b, e, 15);
+        be = new Edge(b, e, UNIDIR,15);
         edges.add(be);
-        bd = new Edge(b, d, 12);
+        bd = new Edge(b, d, UNIDIR,12);
         edges.add(bd);
-        //represent bidirectionality with 2 edges
-        de = new Edge(d, e, 1);
-        ed = new Edge(e, d, 1);
+        de = new Edge(d, e, BIDIR,1);
         edges.add(de);
-        edges.add(ed);
-        df = new Edge(d, f, 2);
+        df = new Edge(d, f, UNIDIR,2);
         edges.add(df);
-        ef = new Edge(e, f, 5);
+        ef = new Edge(e, f, UNIDIR,5);
         edges.add(ef);
-        cf = new Edge(c, f, 10);
+        cf = new Edge(c, f, UNIDIR,10);
         edges.add(cf);
-        //represent bidirectionality with 2 edges
-        ch = new Edge(c, h, 4);
-        hc = new Edge(h, c, 4);
+        ch = new Edge(c, h, BIDIR,4);
+
         edges.add(ch);
         testGraph = new Graph(vertices, edges);
     }
@@ -147,14 +142,14 @@ class GraphTest {
         Route route4 = new Route(a, c, f);
         route4.addEdgesToRoute(ac, cf);
         Route route5 = new Route(a, b, e, d, f);
-        route5.addEdgesToRoute(ab, be, ed, df);
+        route5.addEdgesToRoute(ab, be, de, df);
         assertThat(routes.size(), is(5));
         assertThat(routes, hasItems(route1, route2, route3, route4, route5));
         assertThat(route1.getEdgesInRoute(), hasItems(ab, be, ef));
         assertThat(route2.getEdgesInRoute(), hasItems(ab, bd, df));
         assertThat(route3.getEdgesInRoute(), hasItems(ab, bd, de, ef));
         assertThat(route4.getEdgesInRoute(), hasItems(ac, cf));
-        assertThat(route5.getEdgesInRoute(), hasItems(ab, be, ed, df));
+        assertThat(route5.getEdgesInRoute(), hasItems(ab, be, de, df));
     }
 
     @Test

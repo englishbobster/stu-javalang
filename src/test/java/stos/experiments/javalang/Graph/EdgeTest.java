@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static stos.experiments.javalang.Graph.Directionality.*;
 
 class EdgeTest {
 
@@ -16,7 +17,7 @@ class EdgeTest {
     void setUp() {
         a = new Vertex("A");
         z = new Vertex("Z");
-        edge = new Edge(a, z, 10);
+        edge = new Edge(a, z, UNIDIR,10);
     }
 
     @Test
@@ -28,6 +29,11 @@ class EdgeTest {
     @Test
     void edge_should_have_retrievable_value() {
          assertThat(edge.getValue(), is(10));
+    }
+
+    @Test
+    void edge_should_have_directionality() {
+        assertThat(edge.getDirectionality(), is(UNIDIR));
     }
 
     @Test
