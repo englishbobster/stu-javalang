@@ -52,7 +52,7 @@ class Graph {
 
     private List<Route> getRoutes(Vertex previous, Vertex a, Vertex z, Route route) {
         route = new Route(route);
-        Optional<Edge> edgeOptional = resolveEdgeBetween(previous, a);
+        Optional<Edge> edgeOptional = resolveEdgeBetweenVertexes(previous, a);
         if (edgeOptional.isPresent()) {
             if (!route.getEdgesInRoute().contains(edgeOptional.get())) {
                 route.addEdgeToRoute(edgeOptional.get());
@@ -68,7 +68,7 @@ class Graph {
             return Collections.emptyList();
         }
         List<Route> routes = new ArrayList<>();
-        for (Vertex next : getNextVertices(a)) {
+        for (Vertex next : getNextVerticesConnectToVertex(a)) {
             if (!route.getVerticesInRoute().contains(next)) {
                 List<Route> newRoutes = getRoutes(a, next, z, route);
                 routes.addAll(newRoutes);
@@ -77,26 +77,39 @@ class Graph {
         return routes;
     }
 
-    private Set<Vertex> getNextVertices(Vertex a) {
-        List<Vertex> first = edges.stream()
-                .filter(edge -> edge.startsAt(a))
-                .map(Edge::getZEnd)
-                .collect(Collectors.toList());
-        List<Vertex> second = edges.stream()
-                .filter(edge -> (edge.isBi() && edge.endsAt(a)))
-                .map(Edge::getAEnd)
-                .collect(Collectors.toList());
+    private Set<Vertex> getNextVerticesConnectToVertex(Vertex a) {
         Set<Vertex> result = new HashSet<>();
-        result.addAll(first);
-        result.addAll(second);
-
+        result.addAll(getAllUniDirectionalEdgesAtVertex(a));
+        result.addAll(getAllBiDirectionalEdgesAtVertex(a));
         return result;
     }
 
-    private Optional<Edge> resolveEdgeBetween(Vertex a, Vertex z) {
+    private List<Vertex> getAllBiDirectionalEdgesAtVertex(Vertex a) {
         return edges.stream()
-                .filter(edge -> edge.getAEnd().equals(a) && edge.getZEnd().equals(z)
-                        || (edge.isBi() && edge.getAEnd().equals(z) && edge.getZEnd().equals(a)))
+                    .filter(edge -> (edge.isBi() && edge.endsAt(a)))
+                    .map(Edge::getAEnd)
+                    .collect(Collectors.toList());
+    }
+
+    private List<Vertex> getAllUniDirectionalEdgesAtVertex(Vertex a) {
+        return edges.stream()
+                    .filter(edge -> edge.startsAt(a))
+                    .map(Edge::getZEnd)
+                    .collect(Collectors.toList());
+    }
+
+    private Optional<Edge> resolveEdgeBetweenVertexes(Vertex a, Vertex z) {
+        return edges.stream()
+                .filter(edge -> IsUniDirectionalAndConnectsVertices(a, z, edge)
+                        || isBiDirectionalAndConnectsVertices(a, z, edge))
                 .findFirst();
+    }
+
+    private boolean isBiDirectionalAndConnectsVertices(Vertex a, Vertex z, Edge edge) {
+        return edge.isBi() && edge.getAEnd().equals(z) && edge.getZEnd().equals(a);
+    }
+
+    private boolean IsUniDirectionalAndConnectsVertices(Vertex a, Vertex z, Edge edge) {
+        return edge.getAEnd().equals(a) && edge.getZEnd().equals(z);
     }
 }
