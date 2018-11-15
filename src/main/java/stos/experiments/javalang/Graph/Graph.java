@@ -84,6 +84,7 @@ class Graph {
     }
 
     private Optional<Edge> resolveEdgeBetween(Vertex a, Vertex z) {
-        return edges.stream().filter(edge -> edge.getAEnd().equals(a) && edge.getZEnd().equals(z)).findFirst();
+        return edges.stream()
+                .filter(edge -> edge.getAEnd().equals(a) && edge.getZEnd().equals(z)).findFirst();
     }
 }
