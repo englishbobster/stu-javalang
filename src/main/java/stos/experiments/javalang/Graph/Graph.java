@@ -29,7 +29,7 @@ class Graph {
      * @return A list of Route objects @link Route#Route() which contain the corresponding lists of vertices and edges.
      */
     List<Route> getRoutes(Vertex a, Vertex z) {
-        return getRoutes(a, a, z, new Route());
+        return getRoutes(a, a, z, Route.emptyRoute());
     }
 
     /**
