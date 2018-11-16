@@ -25,6 +25,15 @@ class Edge {
         return directionality.equals(BIDIR);
     }
 
+    boolean IsUniDirectionalAndConnectsVertices(Vertex a, Vertex z) {
+        return getAEnd().equals(a) && getZEnd().equals(z);
+    }
+
+    //if bidirectional we want to check a matches z and visa versa
+    boolean isBiDirectionalAndConnectsVertices(Vertex a, Vertex z) {
+        return isBi() && getAEnd().equals(z) && getZEnd().equals(a);
+    }
+
     @Override
     public String toString() {
         if (directionality.equals(BIDIR)) {

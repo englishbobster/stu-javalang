@@ -100,16 +100,9 @@ class Graph {
 
     private Optional<Edge> resolveEdgeBetweenVertexes(Vertex a, Vertex z) {
         return edges.stream()
-                .filter(edge -> IsUniDirectionalAndConnectsVertices(a, z, edge)
-                        || isBiDirectionalAndConnectsVertices(a, z, edge))
+                .filter(edge -> edge.IsUniDirectionalAndConnectsVertices(a, z)
+                        || edge.isBiDirectionalAndConnectsVertices(a, z))
                 .findFirst();
     }
 
-    private boolean isBiDirectionalAndConnectsVertices(Vertex a, Vertex z, Edge edge) {
-        return edge.isBi() && edge.getAEnd().equals(z) && edge.getZEnd().equals(a);
-    }
-
-    private boolean IsUniDirectionalAndConnectsVertices(Vertex a, Vertex z, Edge edge) {
-        return edge.getAEnd().equals(a) && edge.getZEnd().equals(z);
-    }
 }
