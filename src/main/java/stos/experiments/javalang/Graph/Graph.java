@@ -100,7 +100,7 @@ class Graph {
 
     private Optional<Edge> resolveEdgeBetweenVertexes(Vertex a, Vertex z) {
         return edges.stream()
-                .filter(edge -> edge.IsUniDirectionalAndConnectsVertices(a, z)
+                .filter(edge -> edge.isUniDirectionalAndConnectsVertices(a, z)
                         || edge.isBiDirectionalAndConnectsVertices(a, z))
                 .findFirst();
     }

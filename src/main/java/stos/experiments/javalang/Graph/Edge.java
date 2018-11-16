@@ -25,7 +25,7 @@ class Edge {
         return directionality.equals(BIDIR);
     }
 
-    boolean IsUniDirectionalAndConnectsVertices(Vertex a, Vertex z) {
+    boolean isUniDirectionalAndConnectsVertices(Vertex a, Vertex z) {
         return getAEnd().equals(a) && getZEnd().equals(z);
     }
 

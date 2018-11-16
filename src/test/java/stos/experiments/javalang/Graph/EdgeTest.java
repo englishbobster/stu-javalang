@@ -5,46 +5,73 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static stos.experiments.javalang.Graph.Directionality.*;
 
 class EdgeTest {
 
     private Vertex a;
+    private Vertex y;
     private Vertex z;
-    private Edge edge;
+    private Edge edgeUni;
+    private Edge edgeBi;
 
     @BeforeEach
     void setUp() {
         a = new Vertex("A");
+        y = new Vertex("Y");
         z = new Vertex("Z");
-        edge = new Edge(a, z, UNIDIR,10);
+        edgeUni = new Edge(a, z, UNIDIR,10);
+        edgeBi = new Edge(a, z, BIDIR, 10);
     }
 
     @Test
     void edge_should_have_terminating_vertex_ends() {
-        assertThat(edge.getAEnd(), is(a));
-        assertThat(edge.getZEnd(), is(z));
+        assertThat(edgeUni.getAEnd(), is(a));
+        assertThat(edgeUni.getZEnd(), is(z));
     }
 
     @Test
     void edge_should_have_retrievable_value() {
-         assertThat(edge.getValue(), is(10));
+         assertThat(edgeUni.getValue(), is(10));
     }
 
     @Test
     void edge_should_have_directionality() {
-        assertThat(edge.getDirectionality(), is(UNIDIR));
+        assertThat(edgeUni.getDirectionality(), is(UNIDIR));
     }
 
     @Test
     void edge_starts_with() {
-        assertThat(edge.startsAt(a), is(true));
-        assertThat(edge.startsAt(z), is(false));
+        assertThat(edgeUni.startsAt(a), is(true));
+        assertThat(edgeUni.startsAt(z), is(false));
     }
 
     @Test
     void edge_ends_with() {
-        assertThat(edge.endsAt(z), is(true));
-        assertThat(edge.endsAt(a), is(false));
+        assertThat(edgeUni.endsAt(z), is(true));
+        assertThat(edgeUni.endsAt(a), is(false));
+    }
+
+    @Test
+    void edge_is_Bi_and_connects_vertices() {
+        assertTrue(edgeBi.isBiDirectionalAndConnectsVertices(z, a));
+    }
+
+    @Test
+    void edge_is_not_Uni_and_connects_vertices() {
+        assertFalse(edgeBi.isUniDirectionalAndConnectsVertices(z, a));
+    }
+
+    @Test
+    void edge_is_Uni_and_connects_vertices() {
+        assertTrue(edgeUni.isUniDirectionalAndConnectsVertices(a,z));
+    }
+
+    @Test
+    void edge_is_not_Bi_and_connects_vertices() {
+        assertFalse(edgeUni.isBiDirectionalAndConnectsVertices(a, z));
+        assertFalse(edgeUni.isBiDirectionalAndConnectsVertices(z, a));
     }
 }
