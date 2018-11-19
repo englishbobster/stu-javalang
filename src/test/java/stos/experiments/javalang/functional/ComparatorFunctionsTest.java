@@ -27,7 +27,7 @@ class ComparatorFunctionsTest {
         ken = new Person("Ken", 17);
         stu = new Person("Stu", 48);
         people = Arrays.asList(stu, anna, noah, bea);
-        peopleWithKen = Arrays.asList(bea, ken, noah, stu, anna);
+        peopleWithKen = Arrays.asList(stu, anna, noah, bea, ken);
     }
 
 
@@ -59,7 +59,6 @@ class ComparatorFunctionsTest {
     @Test
     void should_sort_people_by_name_and_then_age_ascending() {
         List<Person> orderedList = Arrays.asList(bea, ken, noah, stu, anna);
-        this.peopleWithKen = Arrays.asList(stu, anna, noah, bea, ken);
         assertTrue(ComparatorFunctions.sortByAgeAndThenNameAscending(peopleWithKen).equals(orderedList));
     }
 }
