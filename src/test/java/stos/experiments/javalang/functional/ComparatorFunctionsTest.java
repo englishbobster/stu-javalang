@@ -29,14 +29,26 @@ class ComparatorFunctionsTest {
 
     @Test
     void should_sort_people_by_age_ascending_order() {
-        List<Person> orderdList = Arrays.asList(bea, noah, stu, anna);
-        assertTrue(ComparatorFunctions.sortByAgeAscending(people).equals(orderdList));
+        List<Person> orderedList = Arrays.asList(bea, noah, stu, anna);
+        assertTrue(ComparatorFunctions.sortByAgeAscending(people).equals(orderedList));
     }
 
     @Test
     void should_sort_people_by_age_descending_order() {
-        List<Person> orderdList = Arrays.asList(anna, stu, noah, bea);
-        assertTrue(ComparatorFunctions.sortByAgeDescending(people).equals(orderdList));
+        List<Person> orderedList = Arrays.asList(anna, stu, noah, bea);
+        assertTrue(ComparatorFunctions.sortByAgeDescending(people).equals(orderedList));
 
+    }
+
+    @Test
+    void should_sort_people_by_name_ascending_order() {
+        List<Person> orderedLust = Arrays.asList(anna, bea, noah, stu);
+        assertTrue(ComparatorFunctions.sortByNameAscending(people).equals(orderedLust));
+    }
+
+    @Test
+    void should_sort_people_by_name_descending_order() {
+        List<Person> orderedLust = Arrays.asList(stu, noah, bea, anna);
+        assertTrue(ComparatorFunctions.sortByNameDescending(people).equals(orderedLust));
     }
 }

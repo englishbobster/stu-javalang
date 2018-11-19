@@ -11,6 +11,10 @@ class ComparatorFunctions {
     //(person, other) -> person.ageDifference(other) equivalent to the method reference
     private static final Comparator<Person> AGE_DIFFERENCE_ASCENDING = Person::ageDifference;
     private static final Comparator<Person> AGE_DIFFERENCE_DESCENDING = AGE_DIFFERENCE_ASCENDING.reversed();
+    //Remember strings already have an alphabetical compareTo implementation (they implement Comparable) and so we can use that.
+    // and then we can replace (person, other) -> person.getName().compareTo(other.getName()) further with "comparing()"
+    private static final Comparator<Person> NAME_ASCENDING = Comparator.comparing(Person::getName);
+    private static final Comparator<Person> NAME_DESCENDING = NAME_ASCENDING.reversed();
 
     //using the Comparator interface (its a functional interface)...we can replace the implementation of Compare with
     // a lambda function.
@@ -24,6 +28,14 @@ class ComparatorFunctions {
         //now we cant rely on using a method reference because
         // (person, other) -> other.ageDifference(person) ....other and person are reversed:-(
         return people.stream().sorted(AGE_DIFFERENCE_DESCENDING).collect(Collectors.toList());
+    }
+
+    public static List<Person> sortByNameAscending(List<Person> people) {
+        return people.stream().sorted(NAME_ASCENDING).collect(Collectors.toList());
+    }
+
+    public static List<Person> sortByNameDescending(List<Person> people) {
+        return people.stream().sorted(NAME_DESCENDING).collect(Collectors.toList());
     }
 }
 
