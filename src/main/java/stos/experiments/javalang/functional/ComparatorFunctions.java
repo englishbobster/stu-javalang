@@ -1,0 +1,29 @@
+package stos.experiments.javalang.functional;
+
+import stos.experiments.javalang.functional.utilclasses.Person;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+class ComparatorFunctions {
+
+    //(person, other) -> person.ageDifference(other) equivalent to the method reference
+    private static final Comparator<Person> AGE_DIFFERENCE_ASCENDING = Person::ageDifference;
+    private static final Comparator<Person> AGE_DIFFERENCE_DESCENDING = AGE_DIFFERENCE_ASCENDING.reversed();
+
+    //using the Comparator interface (its a functional interface)...we can replace the implementation of Compare with
+    // a lambda function.
+    static List<Person> sortAscending(List<Person> people) {
+        //...yes...the java compiler will understand that
+        // (person, other) -> person.ageDifference(other) is equivalent to the method reference!!
+        return people.stream().sorted(AGE_DIFFERENCE_ASCENDING).collect(Collectors.toList());
+    }
+
+    static List<Person> sortDescending(List<Person> people) {
+        //now we cant rely on using a method reference because
+        // (person, other) -> other.ageDifference(person) ....other and person are reversed:-(
+        return people.stream().sorted(AGE_DIFFERENCE_DESCENDING).collect(Collectors.toList());
+    }
+}
+
