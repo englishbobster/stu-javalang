@@ -30,12 +30,17 @@ class ComparatorFunctions {
         return people.stream().sorted(AGE_DIFFERENCE_DESCENDING).collect(Collectors.toList());
     }
 
-    public static List<Person> sortByNameAscending(List<Person> people) {
+    static List<Person> sortByNameAscending(List<Person> people) {
         return people.stream().sorted(NAME_ASCENDING).collect(Collectors.toList());
     }
 
-    public static List<Person> sortByNameDescending(List<Person> people) {
+    static List<Person> sortByNameDescending(List<Person> people) {
         return people.stream().sorted(NAME_DESCENDING).collect(Collectors.toList());
+    }
+
+    //then we can chain our comparators in order of preferred sorting.
+    static List<Person> sortByAgeAndThenNameAscending(List<Person> people) {
+        return people.stream().sorted(AGE_DIFFERENCE_ASCENDING.thenComparing(NAME_ASCENDING)).collect(Collectors.toList());
     }
 }
 
