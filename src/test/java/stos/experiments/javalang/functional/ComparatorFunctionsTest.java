@@ -30,13 +30,13 @@ class ComparatorFunctionsTest {
     @Test
     void should_sort_people_by_age_ascending_order() {
         List<Person> orderdList = Arrays.asList(bea, noah, stu, anna);
-        assertTrue(ComparatorFunctions.sortAscending(people).equals(orderdList));
+        assertTrue(ComparatorFunctions.sortByAgeAscending(people).equals(orderdList));
     }
 
     @Test
     void should_sort_people_by_age_descending_order() {
         List<Person> orderdList = Arrays.asList(anna, stu, noah, bea);
-        assertTrue(ComparatorFunctions.sortDescending(people).equals(orderdList));
+        assertTrue(ComparatorFunctions.sortByAgeDescending(people).equals(orderdList));
 
     }
 }
