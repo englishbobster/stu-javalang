@@ -11,10 +11,10 @@ class RouteTest {
     @Test
     void should_be_able_to_iterate_over_vertices_in_route() {
         Route route = new Route(
-                new Vertex("a"),
-                new Vertex("b"),
-                new Vertex("c"),
-                new Vertex("d")
+                new Vertex<>("a", 1),
+                new Vertex<>("b", 2),
+                new Vertex<>("c", 3),
+                new Vertex<>("d", 4)
         );
 
         for (Vertex v : route) {

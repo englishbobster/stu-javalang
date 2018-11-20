@@ -13,11 +13,12 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 @EqualsAndHashCode
-class Vertex {
+class Vertex<T> {
     private final String label;
+    private final T value;
 
     @Override
     public String toString() {
-        return label;
+        return label + " : " + value.toString();
     }
 }

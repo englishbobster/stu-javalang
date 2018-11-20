@@ -11,17 +11,15 @@ import static stos.experiments.javalang.Graph.Directionality.*;
 
 class EdgeTest {
 
-    private Vertex a;
-    private Vertex y;
-    private Vertex z;
+    private Vertex<Integer> a;
+    private Vertex<Integer> z;
     private Edge edgeUni;
     private Edge edgeBi;
 
     @BeforeEach
     void setUp() {
-        a = new Vertex("A");
-        y = new Vertex("Y");
-        z = new Vertex("Z");
+        a = new Vertex<>("A", 1);
+        z = new Vertex<>("Z", 3);
         edgeUni = new Edge(a, z, UNIDIR,10);
         edgeBi = new Edge(a, z, BIDIR, 10);
     }

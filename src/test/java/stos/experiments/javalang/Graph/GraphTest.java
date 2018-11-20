@@ -16,14 +16,14 @@ import static stos.experiments.javalang.Graph.Directionality.*;
 
 class GraphTest {
 
-    private static Vertex a;
-    private static Vertex b;
-    private static Vertex c;
-    private static Vertex d;
-    private static Vertex e;
-    private static Vertex f;
-    private static Vertex g;
-    private static Vertex h;
+    private static Vertex<Integer> a;
+    private static Vertex<Integer> b;
+    private static Vertex<Integer> c;
+    private static Vertex<Integer> d;
+    private static Vertex<Integer> e;
+    private static Vertex<Integer> f;
+    private static Vertex<Integer> g;
+    private static Vertex<Integer> h;
     private static Edge ab;
     private static Edge ac;
     private static Edge be;
@@ -64,22 +64,22 @@ class GraphTest {
     @BeforeAll
     static void setUpClass() {
         Set<Vertex> vertices = new HashSet<>();
-        a = new Vertex("A");
+        a = new Vertex<>("A", 1);
         vertices.add(a);
-        b = new Vertex("B");
+        b = new Vertex<>("B", 2);
         vertices.add(b);
-        c = new Vertex("C");
+        c = new Vertex<>("C", 3);
         vertices.add(c);
-        d = new Vertex("D");
+        d = new Vertex<>("D", 4);
         vertices.add(d);
-        e = new Vertex("E");
+        e = new Vertex<>("E", 5);
         vertices.add(e);
-        f = new Vertex("F");
+        f = new Vertex<>("F", 6);
         vertices.add(f);
-        g = new Vertex("G");
+        g = new Vertex<>("G", 7);
         vertices.add(g);
-        h = new Vertex("H");
-
+        h = new Vertex<>("H",8 );
+        vertices.add(h);
         Set<Edge> edges = new HashSet<>();
         ab = new Edge(a, b, UNIDIR,10);
         edges.add(ab);
@@ -98,7 +98,6 @@ class GraphTest {
         cf = new Edge(c, f, UNIDIR,10);
         edges.add(cf);
         ch = new Edge(c, h, BIDIR,4);
-
         edges.add(ch);
         testGraph = new Graph(vertices, edges);
     }

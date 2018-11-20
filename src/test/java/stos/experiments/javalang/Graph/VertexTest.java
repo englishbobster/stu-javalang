@@ -6,9 +6,16 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 class VertexTest {
+
+    private static final Vertex<Integer> TEST_VERTEX = new Vertex<>("DONT PANIC", 1);
+
     @Test
     void should_have_a_label() {
-        Vertex v = new Vertex("DONT PANIC");
-        assertThat(v.getLabel(), is("DONT PANIC"));
+        assertThat(TEST_VERTEX.getLabel(), is("DONT PANIC"));
+    }
+
+    @Test
+    void should_return_correct_string() {
+        assertThat(TEST_VERTEX.toString(), is("DONT PANIC : 1"));
     }
 }
