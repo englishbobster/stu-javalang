@@ -48,7 +48,7 @@ class Route implements Iterable<Vertex>{
     }
 
     int getCost() {
-        return edgesInRoute.stream().map(Edge::getValue).reduce((val, acc) -> acc + val).orElse(0);
+        return edgesInRoute.stream().map(Edge::getValue).reduce(Integer::sum).orElse(0);
     }
 
     @Override
