@@ -24,7 +24,7 @@ class Route implements Iterable<Vertex>{
         edgesInRoute = new ArrayList<>();
     }
 
-    Route(Vertex... vertex ) {
+    Route(Vertex... vertex) {
         this();
         verticesInRoute.addAll(Arrays.asList(vertex));
     }
