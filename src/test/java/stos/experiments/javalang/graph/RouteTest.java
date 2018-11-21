@@ -20,9 +20,9 @@ class RouteTest {
         Vertex<Integer> c = new Vertex<>("c", 3);
         Vertex<Integer> d = new Vertex<>("d", 4);
         route = new Route<>(a, b, c, d);
-        Edge<EdgeCost> ab = new Edge<>(a, b, UNIDIR, new EdgeCost(5));
-        Edge<EdgeCost> bc = new Edge<>(b, c, UNIDIR, new EdgeCost(5));
-        Edge<EdgeCost> cd = new Edge<>(c, d, UNIDIR, new EdgeCost(5));
+        Edge<Integer, EdgeCost> ab = new Edge<>(a, b, UNIDIR, new EdgeCost(5));
+        Edge<Integer, EdgeCost> bc = new Edge<>(b, c, UNIDIR, new EdgeCost(5));
+        Edge<Integer, EdgeCost> cd = new Edge<>(c, d, UNIDIR, new EdgeCost(5));
         route.addEdgesToRoute(ab, bc, cd);
     }
 

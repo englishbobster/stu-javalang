@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 
 @EqualsAndHashCode
 @Getter
-class Route<T, U extends hasEdgeCost> implements Iterable<Vertex<T>>{
-    private List<Vertex<T>> verticesInRoute;
-    private List<Edge<U>> edgesInRoute;
+class Route<V, E extends hasEdgeCost> implements Iterable<Vertex<V>> {
+    private List<Vertex<V>> verticesInRoute;
+    private List<Edge<V, E>> edgesInRoute;
 
-    static Route emptyRoute() {
-        return new Route();
+    static <V,E extends hasEdgeCost> Route<V, E> emptyRoute() {
+        return new Route<>();
     }
 
     private Route() {
@@ -25,27 +25,27 @@ class Route<T, U extends hasEdgeCost> implements Iterable<Vertex<T>>{
     }
 
     @SafeVarargs
-    Route(Vertex<T>... vertex) {
+    Route(Vertex<V>... vertex) {
         this();
         verticesInRoute.addAll(Arrays.asList(vertex));
     }
 
-    Route(Route<T, U> route) {
+    Route(Route<V, E> route) {
         this();
         verticesInRoute.addAll(route.verticesInRoute);
         edgesInRoute.addAll(route.edgesInRoute);
     }
 
-    void addVertexToRoute(Vertex<T> vertex) {
+    void addVertexToRoute(Vertex<V> vertex) {
         verticesInRoute.add(vertex);
     }
 
-    void addEdgeToRoute(Edge<U> edge) {
+    void addEdgeToRoute(Edge<V, E> edge) {
         edgesInRoute.add(edge);
     }
 
     @SafeVarargs
-    final void addEdgesToRoute(Edge<U>... edges) {
+    final void addEdgesToRoute(Edge<V, E>... edges) {
         edgesInRoute.addAll(Arrays.asList(edges));
     }
 
@@ -61,7 +61,7 @@ class Route<T, U extends hasEdgeCost> implements Iterable<Vertex<T>>{
     }
 
     @Override
-    public Iterator<Vertex<T>> iterator() {
+    public Iterator<Vertex<V>> iterator() {
         return verticesInRoute.iterator();
     }
 }

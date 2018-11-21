@@ -13,9 +13,9 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 @EqualsAndHashCode
-class Vertex<T> {
+class Vertex<V> {
     private final String label;
-    private final T value;
+    private final V value;
 
     @Override
     public String toString() {

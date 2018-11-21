@@ -15,8 +15,8 @@ class EdgeTest {
 
     private Vertex<Integer> a;
     private Vertex<Integer> z;
-    private Edge<EdgeCost> edgeUni;
-    private Edge<EdgeCost> edgeBi;
+    private Edge<Integer, EdgeCost> edgeUni;
+    private Edge<Integer, EdgeCost> edgeBi;
 
 
     @BeforeEach
@@ -35,7 +35,7 @@ class EdgeTest {
 
     @Test
     void edge_should_have_retrievable_value() {
-         assertThat(edgeUni.getValue().costOfEdge(), is(10));
+        assertThat(edgeUni.getValue().costOfEdge(), is(10));
     }
 
     @Test
@@ -67,7 +67,7 @@ class EdgeTest {
 
     @Test
     void edge_is_Uni_and_connects_vertices() {
-        assertTrue(edgeUni.isUniDirectionalAndConnectsVertices(a,z));
+        assertTrue(edgeUni.isUniDirectionalAndConnectsVertices(a, z));
     }
 
     @Test

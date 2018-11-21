@@ -25,15 +25,15 @@ class GraphTest {
     private static Vertex<Integer> f;
     private static Vertex<Integer> g;
     private static Vertex<Integer> h;
-    private static Edge<EdgeCost> ab;
-    private static Edge<EdgeCost> ac;
-    private static Edge<EdgeCost> be;
-    private static Edge<EdgeCost> bd;
-    private static Edge<EdgeCost> de;
-    private static Edge<EdgeCost> df;
-    private static Edge<EdgeCost> ef;
-    private static Edge<EdgeCost> cf;
-    private static Edge<EdgeCost> ch;
+    private static Edge<Integer, EdgeCost> ab;
+    private static Edge<Integer, EdgeCost> ac;
+    private static Edge<Integer, EdgeCost> be;
+    private static Edge<Integer, EdgeCost> bd;
+    private static Edge<Integer, EdgeCost> de;
+    private static Edge<Integer, EdgeCost> df;
+    private static Edge<Integer, EdgeCost> ef;
+    private static Edge<Integer, EdgeCost> cf;
+    private static Edge<Integer, EdgeCost> ch;
     private static Graph testGraph;
 
     /* Test graph (positively weighted), 8 vertices and 9 edges, bidirectional edges allowed
@@ -79,7 +79,7 @@ class GraphTest {
         vertices.add(f);
         g = new Vertex<>("G", 7);
         vertices.add(g);
-        h = new Vertex<>("H",8 );
+        h = new Vertex<>("H", 8);
         vertices.add(h);
         Set<Edge> edges = new HashSet<>();
         ab = new Edge<>(a, b, UNIDIR, new EdgeCost(10));
@@ -116,7 +116,7 @@ class GraphTest {
     }
 
     @Test
-    void should_get_only_one_route_a_h () {
+    void should_get_only_one_route_a_h() {
         List<Route> routes = testGraph.getRoutes(a, h);
         assertThat(routes.size(), is(1));
     }

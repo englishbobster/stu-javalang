@@ -7,17 +7,17 @@ import static stos.experiments.javalang.graph.Directionality.BIDIR;
 
 @AllArgsConstructor
 @Getter
-class Edge<T extends hasEdgeCost> {
-    private final Vertex aEnd;
-    private final Vertex zEnd;
+class Edge<V, E extends hasEdgeCost> {
+    private final Vertex<V> aEnd;
+    private final Vertex<V> zEnd;
     private final Directionality directionality;
-    private final T value;
+    private final E value;
 
-    boolean startsAt(Vertex a) {
+    boolean startsAt(Vertex<V> a) {
         return a.equals(aEnd);
     }
 
-    boolean endsAt(Vertex z) {
+    boolean endsAt(Vertex<V> z) {
         return z.equals(zEnd);
     }
 
@@ -25,12 +25,12 @@ class Edge<T extends hasEdgeCost> {
         return directionality.equals(BIDIR);
     }
 
-    boolean isUniDirectionalAndConnectsVertices(Vertex a, Vertex z) {
+    boolean isUniDirectionalAndConnectsVertices(Vertex<V> a, Vertex<V> z) {
         return getAEnd().equals(a) && getZEnd().equals(z);
     }
 
     //if bidirectional we want to check a matches z and visa versa
-    boolean isBiDirectionalAndConnectsVertices(Vertex a, Vertex z) {
+    boolean isBiDirectionalAndConnectsVertices(Vertex<V> a, Vertex<V> z) {
         return isBi() && getAEnd().equals(z) && getZEnd().equals(a);
     }
 
