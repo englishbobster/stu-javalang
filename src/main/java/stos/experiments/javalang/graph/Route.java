@@ -1,4 +1,4 @@
-package stos.experiments.javalang.Graph;
+package stos.experiments.javalang.graph;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 @EqualsAndHashCode
 @Getter
-class Route implements Iterable<Vertex>{
-    private List<Vertex> verticesInRoute;
-    private List<Edge> edgesInRoute;
+class Route<T, U extends hasEdgeCost> implements Iterable<Vertex<T>>{
+    private List<Vertex<T>> verticesInRoute;
+    private List<Edge<U>> edgesInRoute;
 
     static Route emptyRoute() {
         return new Route();
@@ -24,31 +24,35 @@ class Route implements Iterable<Vertex>{
         edgesInRoute = new ArrayList<>();
     }
 
-    Route(Vertex... vertex) {
+    @SafeVarargs
+    Route(Vertex<T>... vertex) {
         this();
         verticesInRoute.addAll(Arrays.asList(vertex));
     }
 
-    Route(Route route) {
+    Route(Route<T, U> route) {
         this();
         verticesInRoute.addAll(route.verticesInRoute);
         edgesInRoute.addAll(route.edgesInRoute);
     }
 
-    void addVertexToRoute(Vertex vertex) {
+    void addVertexToRoute(Vertex<T> vertex) {
         verticesInRoute.add(vertex);
     }
 
-    void addEdgeToRoute(Edge edge) {
+    void addEdgeToRoute(Edge<U> edge) {
         edgesInRoute.add(edge);
     }
 
-    void addEdgesToRoute(Edge... edges) {
+    @SafeVarargs
+    final void addEdgesToRoute(Edge<U>... edges) {
         edgesInRoute.addAll(Arrays.asList(edges));
     }
 
     int getCost() {
-        return edgesInRoute.stream().map(Edge::getValue).reduce(Integer::sum).orElse(0);
+        return edgesInRoute.stream().map(Edge::getValue)
+                .map(hasEdgeCost::costOfEdge)
+                .reduce(Integer::sum).orElse(0);
     }
 
     @Override
@@ -57,7 +61,7 @@ class Route implements Iterable<Vertex>{
     }
 
     @Override
-    public Iterator<Vertex> iterator() {
+    public Iterator<Vertex<T>> iterator() {
         return verticesInRoute.iterator();
     }
 }

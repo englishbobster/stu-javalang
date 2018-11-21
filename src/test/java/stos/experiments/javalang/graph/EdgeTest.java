@@ -1,27 +1,30 @@
-package stos.experiments.javalang.Graph;
+package stos.experiments.javalang.graph;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import stos.experiments.javalang.graph.testutils.EdgeCost;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static stos.experiments.javalang.Graph.Directionality.*;
+import static stos.experiments.javalang.graph.Directionality.BIDIR;
+import static stos.experiments.javalang.graph.Directionality.UNIDIR;
 
 class EdgeTest {
 
     private Vertex<Integer> a;
     private Vertex<Integer> z;
-    private Edge edgeUni;
-    private Edge edgeBi;
+    private Edge<EdgeCost> edgeUni;
+    private Edge<EdgeCost> edgeBi;
+
 
     @BeforeEach
     void setUp() {
         a = new Vertex<>("A", 1);
         z = new Vertex<>("Z", 3);
-        edgeUni = new Edge(a, z, UNIDIR,10);
-        edgeBi = new Edge(a, z, BIDIR, 10);
+        edgeUni = new Edge<>(a, z, UNIDIR, new EdgeCost(10));
+        edgeBi = new Edge<>(a, z, BIDIR, new EdgeCost(10));
     }
 
     @Test
@@ -32,7 +35,7 @@ class EdgeTest {
 
     @Test
     void edge_should_have_retrievable_value() {
-         assertThat(edgeUni.getValue(), is(10));
+         assertThat(edgeUni.getValue().costOfEdge(), is(10));
     }
 
     @Test

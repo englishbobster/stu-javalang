@@ -1,4 +1,4 @@
-package stos.experiments.javalang.Graph;
+package stos.experiments.javalang.graph;
 
 import java.util.ArrayList;
 import java.util.Collections;

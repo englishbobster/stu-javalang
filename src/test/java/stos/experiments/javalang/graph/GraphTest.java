@@ -1,7 +1,8 @@
-package stos.experiments.javalang.Graph;
+package stos.experiments.javalang.graph;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import stos.experiments.javalang.graph.testutils.EdgeCost;
 
 import java.util.HashSet;
 import java.util.List;
@@ -12,7 +13,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static stos.experiments.javalang.Graph.Directionality.*;
+import static stos.experiments.javalang.graph.Directionality.*;
 
 class GraphTest {
 
@@ -24,15 +25,15 @@ class GraphTest {
     private static Vertex<Integer> f;
     private static Vertex<Integer> g;
     private static Vertex<Integer> h;
-    private static Edge ab;
-    private static Edge ac;
-    private static Edge be;
-    private static Edge bd;
-    private static Edge de;
-    private static Edge df;
-    private static Edge ef;
-    private static Edge cf;
-    private static Edge ch;
+    private static Edge<EdgeCost> ab;
+    private static Edge<EdgeCost> ac;
+    private static Edge<EdgeCost> be;
+    private static Edge<EdgeCost> bd;
+    private static Edge<EdgeCost> de;
+    private static Edge<EdgeCost> df;
+    private static Edge<EdgeCost> ef;
+    private static Edge<EdgeCost> cf;
+    private static Edge<EdgeCost> ch;
     private static Graph testGraph;
 
     /* Test graph (positively weighted), 8 vertices and 9 edges, bidirectional edges allowed
@@ -81,23 +82,23 @@ class GraphTest {
         h = new Vertex<>("H",8 );
         vertices.add(h);
         Set<Edge> edges = new HashSet<>();
-        ab = new Edge(a, b, UNIDIR,10);
+        ab = new Edge<>(a, b, UNIDIR, new EdgeCost(10));
         edges.add(ab);
-        ac = new Edge(a, c, UNIDIR,15);
+        ac = new Edge<>(a, c, UNIDIR, new EdgeCost(15));
         edges.add(ac);
-        be = new Edge(b, e, UNIDIR,15);
+        be = new Edge<>(b, e, UNIDIR, new EdgeCost(15));
         edges.add(be);
-        bd = new Edge(b, d, UNIDIR,12);
+        bd = new Edge<>(b, d, UNIDIR, new EdgeCost(12));
         edges.add(bd);
-        de = new Edge(d, e, BIDIR,1);
+        de = new Edge<>(d, e, BIDIR, new EdgeCost(1));
         edges.add(de);
-        df = new Edge(d, f, UNIDIR,2);
+        df = new Edge<>(d, f, UNIDIR, new EdgeCost(2));
         edges.add(df);
-        ef = new Edge(e, f, UNIDIR,5);
+        ef = new Edge<>(e, f, UNIDIR, new EdgeCost(5));
         edges.add(ef);
-        cf = new Edge(c, f, UNIDIR,10);
+        cf = new Edge<>(c, f, UNIDIR, new EdgeCost(10));
         edges.add(cf);
-        ch = new Edge(c, h, BIDIR,4);
+        ch = new Edge<>(c, h, BIDIR, new EdgeCost(4));
         edges.add(ch);
         testGraph = new Graph(vertices, edges);
     }
@@ -122,7 +123,7 @@ class GraphTest {
 
     @Test
     void should_get_a_simple_route_between_a_b() {
-        Route expectedRoute = new Route(a, b);
+        Route<Integer, EdgeCost> expectedRoute = new Route<>(a, b);
         expectedRoute.addEdgeToRoute(ab);
         List<Route> routes = testGraph.getRoutes(a, b);
         assertThat(routes.size(), is(1));
@@ -132,15 +133,15 @@ class GraphTest {
     @Test
     void should_find_all_routes_in_the_test_graph() {
         List<Route> routes = testGraph.getRoutes(a, f);
-        Route route1 = new Route(a, b, e, f);
+        Route<Integer, EdgeCost> route1 = new Route<>(a, b, e, f);
         route1.addEdgesToRoute(ab, be, ef);
-        Route route2 = new Route(a, b, d, f);
+        Route<Integer, EdgeCost> route2 = new Route<>(a, b, d, f);
         route2.addEdgesToRoute(ab, bd, df);
-        Route route3 = new Route(a, b, d, e, f);
+        Route<Integer, EdgeCost> route3 = new Route<>(a, b, d, e, f);
         route3.addEdgesToRoute(ab, bd, de, ef);
-        Route route4 = new Route(a, c, f);
+        Route<Integer, EdgeCost> route4 = new Route<>(a, c, f);
         route4.addEdgesToRoute(ac, cf);
-        Route route5 = new Route(a, b, e, d, f);
+        Route<Integer, EdgeCost> route5 = new Route<>(a, b, e, d, f);
         route5.addEdgesToRoute(ab, be, de, df);
         assertThat(routes.size(), is(5));
         assertThat(routes, hasItems(route1, route2, route3, route4, route5));
@@ -153,8 +154,8 @@ class GraphTest {
 
     @Test
     void should_find_the_cheapest_route() {
-        Route route = testGraph.findCheapestRoute(a, f);
-        Route expected = new Route(a, b, d, f);
+        Route<Integer, EdgeCost> route = testGraph.findCheapestRoute(a, f);
+        Route<Integer, EdgeCost> expected = new Route<>(a, b, d, f);
         expected.addEdgesToRoute(ab, bd, df);
         assertThat(route, is(equalTo(expected)));
         assertThat(route.getCost(), is(24));

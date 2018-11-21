@@ -1,16 +1,17 @@
-package stos.experiments.javalang.Graph;
+package stos.experiments.javalang.graph;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import stos.experiments.javalang.graph.testutils.EdgeCost;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static stos.experiments.javalang.Graph.Directionality.UNIDIR;
+import static stos.experiments.javalang.graph.Directionality.UNIDIR;
 
 class RouteTest {
 
-    private Route route;
+    private Route<Integer, EdgeCost> route;
 
     @BeforeEach
     void setUp() {
@@ -18,10 +19,10 @@ class RouteTest {
         Vertex<Integer> b = new Vertex<>("b", 2);
         Vertex<Integer> c = new Vertex<>("c", 3);
         Vertex<Integer> d = new Vertex<>("d", 4);
-        route = new Route(a, b, c, d);
-        Edge ab = new Edge(a, b, UNIDIR, 5);
-        Edge bc = new Edge(b, c, UNIDIR, 5);
-        Edge cd = new Edge(c, d, UNIDIR, 5);
+        route = new Route<>(a, b, c, d);
+        Edge<EdgeCost> ab = new Edge<>(a, b, UNIDIR, new EdgeCost(5));
+        Edge<EdgeCost> bc = new Edge<>(b, c, UNIDIR, new EdgeCost(5));
+        Edge<EdgeCost> cd = new Edge<>(c, d, UNIDIR, new EdgeCost(5));
         route.addEdgesToRoute(ab, bc, cd);
     }
 
