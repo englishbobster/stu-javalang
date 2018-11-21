@@ -1,15 +1,15 @@
 package stos.experiments.javalang.graph.testutils;
 
 import lombok.Data;
-import stos.experiments.javalang.graph.hasEdgeCost;
+import stos.experiments.javalang.graph.CostableEdge;
 
 @Data
 public
-class EdgeCost implements hasEdgeCost {
+class EdgeCost implements CostableEdge {
     private final Integer val;
 
     @Override
-    public int costOfEdge() {
+    public int edgeCost() {
         return val;
     }
 }

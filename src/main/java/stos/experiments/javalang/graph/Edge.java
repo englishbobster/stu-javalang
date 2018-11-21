@@ -7,7 +7,7 @@ import static stos.experiments.javalang.graph.Directionality.BIDIR;
 
 @AllArgsConstructor
 @Getter
-class Edge<V, E extends hasEdgeCost> {
+class Edge<V, E extends CostableEdge> {
     private final Vertex<V> aEnd;
     private final Vertex<V> zEnd;
     private final Directionality directionality;

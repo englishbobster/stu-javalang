@@ -35,7 +35,7 @@ class EdgeTest {
 
     @Test
     void edge_should_have_retrievable_value() {
-        assertThat(edgeUni.getValue().costOfEdge(), is(10));
+        assertThat(edgeUni.getValue().edgeCost(), is(10));
     }
 
     @Test

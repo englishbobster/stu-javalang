@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-class Graph<V, E extends hasEdgeCost> {
+class Graph<V, E extends CostableEdge> {
 
     private Set<Vertex<V>> vertices;
     private Set<Edge<V, E>> edges;

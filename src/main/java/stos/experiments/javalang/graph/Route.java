@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 
 @EqualsAndHashCode
 @Getter
-class Route<V, E extends hasEdgeCost> implements Iterable<Vertex<V>> {
+class Route<V, E extends CostableEdge> implements Iterable<Vertex<V>> {
     private List<Vertex<V>> verticesInRoute;
     private List<Edge<V, E>> edgesInRoute;
 
-    static <V,E extends hasEdgeCost> Route<V, E> emptyRoute() {
+    static <V,E extends CostableEdge> Route<V, E> emptyRoute() {
         return new Route<>();
     }
 
@@ -51,7 +51,7 @@ class Route<V, E extends hasEdgeCost> implements Iterable<Vertex<V>> {
 
     int getCost() {
         return edgesInRoute.stream().map(Edge::getValue)
-                .map(hasEdgeCost::costOfEdge)
+                .map(CostableEdge::edgeCost)
                 .reduce(Integer::sum).orElse(0);
     }
 
