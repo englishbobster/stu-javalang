@@ -34,7 +34,7 @@ class GraphTest {
     private static Edge<Integer, EdgeCost> ef;
     private static Edge<Integer, EdgeCost> cf;
     private static Edge<Integer, EdgeCost> ch;
-    private static Graph testGraph;
+    private static Graph<Integer, EdgeCost> testGraph;
 
     /* Test graph (positively weighted), 8 vertices and 9 edges, bidirectional edges allowed
      *                          +---+           +---+
@@ -64,7 +64,7 @@ class GraphTest {
 
     @BeforeAll
     static void setUpClass() {
-        Set<Vertex> vertices = new HashSet<>();
+        Set<Vertex<Integer>> vertices = new HashSet<>();
         a = new Vertex<>("A", 1);
         vertices.add(a);
         b = new Vertex<>("B", 2);
@@ -81,7 +81,7 @@ class GraphTest {
         vertices.add(g);
         h = new Vertex<>("H", 8);
         vertices.add(h);
-        Set<Edge> edges = new HashSet<>();
+        Set<Edge<Integer, EdgeCost>> edges = new HashSet<>();
         ab = new Edge<>(a, b, UNIDIR, new EdgeCost(10));
         edges.add(ab);
         ac = new Edge<>(a, c, UNIDIR, new EdgeCost(15));
@@ -100,24 +100,24 @@ class GraphTest {
         edges.add(cf);
         ch = new Edge<>(c, h, BIDIR, new EdgeCost(4));
         edges.add(ch);
-        testGraph = new Graph(vertices, edges);
+        testGraph = new Graph<>(vertices, edges);
     }
 
     @Test
     void should_get_an_empty_route_between_a_g() {
-        List<Route> routes = testGraph.getRoutes(a, g);
+        List<Route<Integer, EdgeCost>> routes = testGraph.getRoutes(a, g);
         assertTrue(routes.isEmpty());
     }
 
     @Test
     void should_get_an_empty_route_between_f_a() {
-        List<Route> routes = testGraph.getRoutes(f, a);
+        List<Route<Integer, EdgeCost>> routes = testGraph.getRoutes(f, a);
         assertTrue(routes.isEmpty());
     }
 
     @Test
     void should_get_only_one_route_a_h() {
-        List<Route> routes = testGraph.getRoutes(a, h);
+        List<Route<Integer, EdgeCost>> routes = testGraph.getRoutes(a, h);
         assertThat(routes.size(), is(1));
     }
 
@@ -125,14 +125,14 @@ class GraphTest {
     void should_get_a_simple_route_between_a_b() {
         Route<Integer, EdgeCost> expectedRoute = new Route<>(a, b);
         expectedRoute.addEdgeToRoute(ab);
-        List<Route> routes = testGraph.getRoutes(a, b);
+        List<Route<Integer, EdgeCost>> routes = testGraph.getRoutes(a, b);
         assertThat(routes.size(), is(1));
         assertThat(routes.get(0), is(expectedRoute));
     }
 
     @Test
     void should_find_all_routes_in_the_test_graph() {
-        List<Route> routes = testGraph.getRoutes(a, f);
+        List<Route<Integer, EdgeCost>> routes = testGraph.getRoutes(a, f);
         Route<Integer, EdgeCost> route1 = new Route<>(a, b, e, f);
         route1.addEdgesToRoute(ab, be, ef);
         Route<Integer, EdgeCost> route2 = new Route<>(a, b, d, f);
@@ -163,7 +163,7 @@ class GraphTest {
 
     @Test
     void should_return_empty_route_when_finding_cheapest_for_vertices_with_no_path() {
-        Route route = testGraph.findCheapestRoute(a, g);
+        Route<Integer, EdgeCost> route = testGraph.findCheapestRoute(a, g);
         assertThat(route, is(equalTo(Route.emptyRoute())));
         assertThat(route.getCost(), is(0));
     }
