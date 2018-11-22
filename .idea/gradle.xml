@@ -10,6 +10,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/data_structures" />
+            <option value="$PROJECT_DIR$/functional" />
+            <option value="$PROJECT_DIR$/graph" />
           </set>
         </option>
       </GradleProjectSettings>

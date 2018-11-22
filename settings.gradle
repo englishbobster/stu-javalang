@@ -1,3 +1,6 @@
 enableFeaturePreview('IMPROVED_POM_SUPPORT')
 rootProject.name = 'javalang'
 
+include 'graph'
+include 'functional'
+include 'data_structures'
