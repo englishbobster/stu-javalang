@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static stos.experiments.javalang.graph.Directionality.*;
 
-class GraphTest {
+class GraphImplTest {
 
     private static Vertex<Integer> a;
     private static Vertex<Integer> b;
@@ -100,7 +100,7 @@ class GraphTest {
         edges.add(cf);
         ch = new Edge<>(c, h, BIDIR, new EdgeCost(4));
         edges.add(ch);
-        testGraph = new Graph<>(vertices, edges);
+        testGraph = new GraphImpl<>(vertices, edges);
     }
 
     @Test
