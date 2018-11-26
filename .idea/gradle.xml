@@ -9,11 +9,11 @@
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../local_apps/local_gradle/gradle" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/data_structures" />
-            <option value="$PROJECT_DIR$/file_readers" />
-            <option value="$PROJECT_DIR$/functional" />
-            <option value="$PROJECT_DIR$/graph" />
+            <option value="/usr/local/src/dev/repos/java/javalang" />
+            <option value="/usr/local/src/dev/repos/java/javalang/data_structures" />
+            <option value="/usr/local/src/dev/repos/java/javalang/file_readers" />
+            <option value="/usr/local/src/dev/repos/java/javalang/functional" />
+            <option value="/usr/local/src/dev/repos/java/javalang/graph" />
           </set>
         </option>
       </GradleProjectSettings>
