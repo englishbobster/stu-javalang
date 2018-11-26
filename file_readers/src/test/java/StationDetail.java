@@ -10,7 +10,8 @@ public class StationDetail {
     private float latitude;
     private float longitude;
     private String name;
-    private String presentation;
+    // We skip presentation name
+    // private String presentationName;
     private int zone;
     private int totalLines;
     private int rail;
