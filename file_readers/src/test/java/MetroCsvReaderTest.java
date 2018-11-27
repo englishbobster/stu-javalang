@@ -10,8 +10,8 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-class MetroDataReaderTest {
-    String testString = "40,51.5392,-0.1426,\"Camden Town\",\"Camden<br />Town\",2,1,0\n"
+class MetroCsvReaderTest {
+    String stationLines = "40,51.5392,-0.1426,\"Camden Town\",\"Camden<br />Town\",2,1,0\n"
                       + "42,51.5051,-0.0209,\"Canary Wharf\",\"Canary<br />Wharf\",2,2,0";
     private CsvToBean<StationDetail> reader;
 
@@ -23,7 +23,7 @@ class MetroDataReaderTest {
         String[] columns = new String[]{"id", "latitude", "longitude", "name", "presentation", "zone", "totalLines", "rail"};
         strategy.setColumnMapping(columns);
 
-        reader = new CsvToBeanBuilder<StationDetail>(new StringReader(testString))
+        reader = new CsvToBeanBuilder<StationDetail>(new StringReader(stationLines))
                 .withType(StationDetail.class).withMappingStrategy(strategy).build();
     }
 
