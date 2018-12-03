@@ -11,11 +11,13 @@ import java.util.stream.Collectors;
 public class MetroCsvReader<T extends CsvDetail> {
 
     private final CsvToBean<T> detailCsvToBean;
+    private final Class<T> detail;
 
     MetroCsvReader(Reader reader, Class<T> detail) {
+        this.detail = detail;
         ColumnPositionMappingStrategy<T> strategy = new ColumnPositionMappingStrategy<>();
         strategy.setType(detail);
-        String[] columns = privateFields(detail);
+        String[] columns = privateFieldsForT();
         strategy.setColumnMapping(columns);
         CsvToBeanBuilder<T> stationDetailCsvToBeanBuilder = new CsvToBeanBuilder<>(reader);
         detailCsvToBean = stationDetailCsvToBeanBuilder.withType(detail).withMappingStrategy(strategy).build();
@@ -26,8 +28,8 @@ public class MetroCsvReader<T extends CsvDetail> {
         return result;
     }
 
-    private String[] privateFields(Class<T> clazz) {
-        List<String> collect = Arrays.asList(clazz.getDeclaredFields())
+    private String[] privateFieldsForT() {
+        List<String> collect = Arrays.asList(detail.getDeclaredFields())
                 .stream()
                 .map(Field::getName)
                 .collect(Collectors.toList());
