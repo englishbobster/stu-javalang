@@ -1,7 +1,3 @@
-import com.opencsv.bean.ColumnPositionMappingStrategy;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.StringReader;
@@ -11,26 +7,26 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 class MetroCsvReaderTest {
-    String stationLines = "40,51.5392,-0.1426,\"Camden Town\",\"Camden<br />Town\",2,1,0\n"
+    private static final String stationfile = "40,51.5392,-0.1426,\"Camden Town\",\"Camden<br />Town\",2,1,0\n"
                       + "42,51.5051,-0.0209,\"Canary Wharf\",\"Canary<br />Wharf\",2,2,0";
-    private CsvToBean<StationDetail> reader;
 
-    @BeforeEach
-    void setUp() {
-        ColumnPositionMappingStrategy<StationDetail> strategy = new ColumnPositionMappingStrategy<>();
-        strategy.setType(StationDetail.class);
+    private static final String routes = "11,163,1\n" + "11,212,1";
 
-        String[] columns = new String[]{"id", "latitude", "longitude", "name", "presentation", "zone", "totalLines", "rail"};
-        strategy.setColumnMapping(columns);
-
-        reader = new CsvToBeanBuilder<StationDetail>(new StringReader(stationLines))
-                .withType(StationDetail.class).withMappingStrategy(strategy).build();
+    @Test
+    void should_read_a_line_of_stations_file() {
+        MetroCsvReader<StationDetail> reader = new MetroCsvReader<>(new StringReader(stationfile), StationDetail.class);
+        List<StationDetail> stationDetails = reader.createEntries();
+        assertThat(stationDetails.size(), is(2));
+        assertThat(stationDetails.get(0).getName(), is("Camden Town"));
+        assertThat(stationDetails.get(0).getId(), is(40));
     }
 
     @Test
-    void should_read_a_line_of_a_csv_file() {
-        List<StationDetail> stationDetails = reader.parse();
-        assertThat(stationDetails.size(), is(2));
-        assertThat(stationDetails.get(0).getName(), is("Camden Town"));
+    void should_read_a_line_of_routes_file() {
+        MetroCsvReader<RouteDetail> reader = new MetroCsvReader<>(new StringReader(routes), RouteDetail.class);
+        List<RouteDetail> routeDetails = reader.createEntries();
+        assertThat(routeDetails.size(), is(2));
+        assertThat(routeDetails.get(0).getAStation(), is(11));
+        assertThat(routeDetails.get(0).getZStation(), is(163));
     }
 }
