@@ -5,20 +5,20 @@
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="data_structures_main" target="1.8" />
-      <module name="data_structures_test" target="1.8" />
-      <module name="file_readers_main" target="1.8" />
-      <module name="file_readers_test" target="1.8" />
-      <module name="functional_main" target="1.8" />
-      <module name="functional_test" target="1.8" />
-      <module name="graph_main" target="1.8" />
-      <module name="graph_test" target="1.8" />
-      <module name="javalang_main" target="1.8" />
-      <module name="javalang_test" target="1.8" />
-      <module name="jsonpath_main" target="1.8" />
-      <module name="jsonpath_test" target="1.8" />
-      <module name="sorting_main" target="1.8" />
-      <module name="sorting_test" target="1.8" />
+      <module name="data_structures_main" target="11" />
+      <module name="data_structures_test" target="11" />
+      <module name="file_readers_main" target="11" />
+      <module name="file_readers_test" target="11" />
+      <module name="functional_main" target="11" />
+      <module name="functional_test" target="11" />
+      <module name="graph_main" target="11" />
+      <module name="graph_test" target="11" />
+      <module name="javalang_main" target="11" />
+      <module name="javalang_test" target="11" />
+      <module name="jsonpath_main" target="11" />
+      <module name="jsonpath_test" target="11" />
+      <module name="sorting_main" target="11" />
+      <module name="sorting_test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

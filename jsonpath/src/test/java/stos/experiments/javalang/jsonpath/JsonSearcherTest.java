@@ -1,6 +1,5 @@
 package stos.experiments.javalang.jsonpath;
 
-import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,7 @@ import static org.hamcrest.Matchers.is;
 
 class JsonSearcherTest {
 
-  public static final String EXPECTED_SUB_DOC = "[{\"number\":42," +
+  private static final String EXPECTED_SUB_DOC = "[{\"number\":42," +
           "\"street\":\"Builders rd\"," +
           "\"city\":\"Divvers\"," +
           "\"postcosd\":\"PE71LP\"," +
@@ -30,7 +29,7 @@ class JsonSearcherTest {
   void setUp() {
     jsonExample = new ExampleJson().buildJsonExample();
   }
-  
+
   @Test
   void using_json_path_with_data_equal_to_first_address() {
     Object read = JsonPath.parse(jsonExample).read("$..addresses.[?(@.street == 'Builders rd')]");

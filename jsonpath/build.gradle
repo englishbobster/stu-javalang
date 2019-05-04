@@ -11,17 +11,31 @@ plugins {
 group 'stos.experiments'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.11
 
 repositories {
+    jcenter()
     mavenCentral()
 }
 
+//we will need to get groovy to compile before java
+sourceSets {
+    main {
+        java {
+            srcDirs = [] // don't compile Java code twice
+        }
+        groovy {
+            srcDirs = [ 'src/main/groovy', 'src/main/java' ]
+        }
+    }
+}
+
+
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+    compile 'org.codehaus.groovy:groovy-all:2.4.15'
 
     //bill of materials (bom) for junit5...
-    implementation 'org.junit:junit-bom:5.3.1'
+    implementation platform('org.junit:junit-bom:5.5.0-M1')
 
     //...so we can pull in dependencies without versions
     implementation 'org.junit.jupiter:junit-jupiter-api'
@@ -43,6 +57,6 @@ test {
 
 lombok { // Configuring the lombok plugin which should give us the lombok compile time dependency
     // These values are the default values.
-    version = "1.16.20"
-    sha256 = "c5178b18caaa1a15e17b99ba5e4023d2de2ebc18b58cde0f5a04ca4b31c10e6d"
+    version = "1.18.4"
+    sha256 = "39f3922deb679b1852af519eb227157ef2dd0a21eec3542c8ce1b45f2df39742"
 }
