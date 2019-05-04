@@ -1,3 +1,5 @@
+package stos.experiments.javalang.file_reading.csv_files;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

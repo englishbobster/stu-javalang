@@ -1,4 +1,9 @@
+package stos.experiments.javalang.file_reading.csv_files;
+
 import org.junit.jupiter.api.Test;
+import stos.experiments.javalang.file_reading.csv_files.MetroCsvReader;
+import stos.experiments.javalang.file_reading.csv_files.RouteDetail;
+import stos.experiments.javalang.file_reading.csv_files.StationDetail;
 
 import java.io.StringReader;
 import java.util.List;
